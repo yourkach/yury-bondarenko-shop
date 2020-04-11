@@ -7,12 +7,72 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/checkoutHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="50dp"
+        android:text="@string/checkout_header"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/checkoutMoneyIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutHeader"
+        app:srcCompat="@drawable/ic_attach_money_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="@string/checkout_sum"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/checkoutMoneyIcon"
+        app:layout_constraintStart_toEndOf="@+id/checkoutMoneyIcon"
+        app:layout_constraintTop_toTopOf="@+id/checkoutMoneyIcon" />
+
+    <TextView
+        android:id="@+id/checkoutSumValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView2"
+        tools:text="1500 р" />
+
+    <Button
+        android:id="@+id/checkoutPay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Оплатить"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/checkoutPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="@string/checkoutHintPhone"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkoutMoneyIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
