@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/checkoutHeader"
+        android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -19,13 +19,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/checkoutMoneyIcon"
+        android:id="@+id/moneyIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutHeader"
+        app:layout_constraintTop_toBottomOf="@+id/header"
         app:srcCompat="@drawable/ic_attach_money_black_24dp" />
 
     <TextView
@@ -35,12 +35,12 @@
         android:layout_marginStart="32dp"
         android:text="@string/checkout_sum"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/checkoutMoneyIcon"
-        app:layout_constraintStart_toEndOf="@+id/checkoutMoneyIcon"
-        app:layout_constraintTop_toTopOf="@+id/checkoutMoneyIcon" />
+        app:layout_constraintBottom_toBottomOf="@+id/moneyIcon"
+        app:layout_constraintStart_toEndOf="@+id/moneyIcon"
+        app:layout_constraintTop_toTopOf="@+id/moneyIcon" />
 
     <TextView
-        android:id="@+id/checkoutSumValue"
+        android:id="@+id/sumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -51,7 +51,7 @@
         tools:text="1500 р" />
 
     <Button
-        android:id="@+id/checkoutPay"
+        android:id="@+id/pay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -65,14 +65,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/checkoutPhone"
+        android:id="@+id/phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="@string/checkoutHintPhone"
+        android:hint="@string/checkout_hint_phone"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkoutMoneyIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/moneyIcon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

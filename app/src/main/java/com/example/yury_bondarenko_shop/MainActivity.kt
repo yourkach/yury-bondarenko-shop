@@ -3,24 +3,21 @@ package com.example.yury_bondarenko_shop
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_place_order.*
 
 class MainActivity : AppCompatActivity(), ProductView {
 
-    private lateinit var presenter: BasketPresenter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_place_order)
 
-        presenter = BasketPresenter(
-            listOf(
-                Product(price = 123.5, salePercent = 30, productName = "iPhone Case")
-                , Product(price = 100.0, salePercent = 15, productName = "Samsung Case")
-                , Product(price = 80.0, salePercent = 10, productName = "Pixel Case")
-            ), this
-        )
 
-        presenter.printBasket()
+        //setting default view values
+        setRawPrice("0 Р")
+        setDiscount("0 Р")
+        setTotalPrice("0 Р")
+        setBasketItemsCount(0)
     }
 
     override fun print(price: Double) {
@@ -29,6 +26,22 @@ class MainActivity : AppCompatActivity(), ProductView {
 
     override fun print(text: String) {
         Log.i("productView", text)
+    }
+
+    fun setRawPrice(formattedPrice: String) {
+        rawPrice.text = formattedPrice
+    }
+
+    fun setDiscount(formattedDiscount: String) {
+        discountAmount.text = formattedDiscount
+    }
+
+    fun setTotalPrice(formattedPrice: String) {
+        totalPrice.text = formattedPrice
+    }
+
+    fun setBasketItemsCount(count: Int) {
+        productsCount.text = "($count)"
     }
 
 }

@@ -2,5 +2,18 @@
     <string name="app_name">yury-bondarenko-shop</string>
     <string name="checkout_header">Оформление заказа</string>
     <string name="checkout_sum">итого</string>
-    <string name="checkoutHintPhone">Телефон</string>
+    <string name="checkout_hint_phone">Телефон</string>
+    <string name="checkout_pay">Оплатить</string>
+    <string name="checkout_total_price">Итого к оплате</string>
+    <string name="checkout_minus">-</string>
+    <string name="checkout_discount">Скидка</string>
+    <string name="checkout_basket_items">Товары в корзине</string>
+    <string name="checkout_order_details">Состав заказа</string>
+    <string name="checkout_payment_card">Картой</string>
+    <string name="checkout_payment_cash">Наличными</string>
+    <string name="checkout_payment_method">Способ оплаты</string>
+    <string name="checkout_hint_middle_name">Отчество</string>
+    <string name="checkout_hint_first_name">Имя</string>
+    <string name="checkout_hint_last_name">Фамилия</string>
+    <string name="checkout_personal_data">Личные данные</string>
 </resources>
