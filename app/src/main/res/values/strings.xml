@@ -16,4 +16,5 @@
     <string name="checkout_hint_first_name">Имя</string>
     <string name="checkout_hint_last_name">Фамилия</string>
     <string name="checkout_personal_data">Личные данные</string>
+    <string name="checkout_phone_format_hint">Пример, 89999999999 или +79999999999</string>
 </resources>

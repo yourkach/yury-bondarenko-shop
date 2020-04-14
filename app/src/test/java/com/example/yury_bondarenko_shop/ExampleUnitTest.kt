@@ -8,21 +8,29 @@ class ExampleUnitTest {
 
     @Test
     fun example() {
-
-        val iphoneCase = Product(price = 123.5, salePercent = 30)
-        val discountIphoneCasePrice = iphoneCase.calcDiscountPrice()
-
-        var pricePrinter: PricePrinter
-
-        pricePrinter = SimplePricePrinter()
-        pricePrinter.print(discountIphoneCasePrice)
-
-        pricePrinter = MeasuredPricePrinter("чехол")
-        pricePrinter.print(discountIphoneCasePrice)
-
-        pricePrinter = CurrencyPricePrinter("$")
-        pricePrinter.print(discountIphoneCasePrice)
+        val numbers = listOf(
+            "+79855310868",
+            "+79855310868",
+            "880084545454",
+            "88008454545411",
+            "465456465465",
+            "784545487878",
+            "12125465415646",
+            "454658498797894",
+            "231321546545",
+            "231321321316548",
+            "78892135546",
+            "84456464641",
+            "89855310868"
+        )
+        numbers.forEach {
+            println(it + " ${numberIsCorrect(it)} ${it.length}")
+        }
     }
+}
+
+private fun numberIsCorrect(text: String): Boolean {
+    return text.matches(Regex("((\\+7|8)([0-9]){10})"))
 }
 
 
