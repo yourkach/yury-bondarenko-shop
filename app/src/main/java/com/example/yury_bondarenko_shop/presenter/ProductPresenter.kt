@@ -1,5 +1,8 @@
-package com.example.yury_bondarenko_shop
+package com.example.yury_bondarenko_shop.presenter
 
+import com.example.yury_bondarenko_shop.data_classes.Product
+import com.example.yury_bondarenko_shop.view.ProductView
+import com.example.yury_bondarenko_shop.model.CreateOrderModel
 import moxy.MvpPresenter
 
 class ProductPresenter : MvpPresenter<ProductView>() {

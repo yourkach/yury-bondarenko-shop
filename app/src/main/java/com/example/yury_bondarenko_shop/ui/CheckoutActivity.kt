@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop
+package com.example.yury_bondarenko_shop.ui
 
 import android.os.Bundle
 import android.text.Editable
@@ -6,23 +6,34 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.yury_bondarenko_shop.presenter.ProductPresenter
+import com.example.yury_bondarenko_shop.view.ProductView
+import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.ui.CatalogActivity.Companion.PRODUCT_ID
 import kotlinx.android.synthetic.main.activity_checkout.*
 
-class MainActivity : AppCompatActivity(), ProductView {
+class CheckoutActivity : AppCompatActivity(),
+    ProductView {
 
-    private val presenter = ProductPresenter()
+    private val presenter =
+        ProductPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
         setContentView(R.layout.activity_checkout)
-
         presenter.attachView(this)
-
         setListeners()
+
+        val productId = intent.extras?.getInt(PRODUCT_ID, -1)
+
+        Log.i("idProduct", productId.toString())
+
     }
 
     private fun setListeners() {
+        checkoutBackBtn.setOnClickListener {
+            finish()
+        }
         checkoutFirstName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkFirstName(s.toString())

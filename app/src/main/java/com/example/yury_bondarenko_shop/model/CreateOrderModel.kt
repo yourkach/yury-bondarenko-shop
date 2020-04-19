@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop
+package com.example.yury_bondarenko_shop.model
 
 /**
  * Модель для создания заказа

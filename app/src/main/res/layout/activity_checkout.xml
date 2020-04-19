@@ -10,17 +10,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+            <ImageButton
+                android:id="@+id/checkoutBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toStartOf="@+id/checkoutHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/checkoutHeader"
+                app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+
             <TextView
                 android:id="@+id/checkoutHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="@dimen/headerVerticalMargin"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/checkout_header"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,13 +49,14 @@
                 android:id="@+id/checkoutPersonalDataLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/checkout_personal_data"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/checkoutHeader"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkoutHeaderDivider" />
 
             <EditText

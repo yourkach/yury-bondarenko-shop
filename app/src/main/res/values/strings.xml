@@ -17,4 +17,11 @@
     <string name="checkout_hint_last_name">Фамилия</string>
     <string name="checkout_personal_data">Личные данные</string>
     <string name="checkout_phone_format_hint">Пример, 89999999999 или +79999999999</string>
+    <string name="product_info_header">Информация о товаре</string>
+    <string name="basket_header">Корзина</string>
+    <string name="catalog_header">Каталог</string>
+    <string name="catalog_show_product_info">товар</string>
+    <string name="catalog_show_basket">корзина</string>
+    <string name="basket_checkout">оформить заказ</string>
+    <string name="basket_show_product_info">товар</string>
 </resources>

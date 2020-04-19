@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop
+package com.example.yury_bondarenko_shop.data_classes
 
 class Product(
     /**
