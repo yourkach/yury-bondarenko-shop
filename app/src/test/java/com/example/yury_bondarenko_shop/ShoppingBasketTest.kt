@@ -1,29 +1,12 @@
 package com.example.yury_bondarenko_shop
 
+import com.example.yury_bondarenko_shop.data.Product
 import org.junit.Test
 
 class ShoppingBasketTest {
 
     @Test
     fun example() {
-
-        val basket = ShoppingBasket(
-            listOf(
-                Product(price = 120.0, salePercent = 22),
-                Product(price = 105.0, salePercent = 17),
-                Product(price = 158.8, salePercent = 3)
-            )
-        )
-
-        var printer: BasketPrinter
-
-        printer = SimpleBasketPrinter()
-        printer.printBasket(basket)
-
-        println()
-
-        printer = FormattedBasketPrinter(SimplePricePrinter())
-        printer.printBasket(basket)
 
     }
 }

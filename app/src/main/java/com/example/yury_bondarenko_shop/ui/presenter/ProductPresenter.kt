@@ -1,6 +1,6 @@
-package com.example.yury_bondarenko_shop.presenter
+package com.example.yury_bondarenko_shop.ui.presenter
 
-import com.example.yury_bondarenko_shop.data_classes.Product
+import com.example.yury_bondarenko_shop.data.Product
 import com.example.yury_bondarenko_shop.view.ProductView
 import com.example.yury_bondarenko_shop.model.CreateOrderModel
 import moxy.MvpPresenter

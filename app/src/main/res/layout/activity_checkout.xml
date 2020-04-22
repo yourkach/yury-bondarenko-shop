@@ -11,11 +11,14 @@
             android:layout_height="wrap_content">
 
 
-            <ImageButton
-                android:id="@+id/checkoutBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/checkoutHeader"
+            <ImageView
+                android:id="@+id/checkoutBackIv"
+                android:layout_width="@dimen/back_button_size"
+                android:layout_height="@dimen/back_button_size"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:scaleType="center"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/checkoutHeader"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/checkoutHeader"
                 app:srcCompat="@drawable/ic_arrow_back_black_24dp" />

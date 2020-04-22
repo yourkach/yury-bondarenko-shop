@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop.data_classes
+package com.example.yury_bondarenko_shop.data
 
 class Product(
     /**
@@ -11,10 +11,14 @@ class Product(
     /**
      * @return price with applied discount determined by [salePercent]
      *
-     * If [salePercent] is more than 100 than product will have negative price
+     * If [salePercent] is more than 100 then product will have negative price
      * If [salePercent] less than 0 product price will be increased
      */
     fun calcDiscountPrice(): Double = price * (1 - salePercent / 100.0)
 
+    fun getSalePercent(): Int = salePercent
+
     fun getProductName(): String = productName
+
+    fun getRawPrice(): Double = price
 }

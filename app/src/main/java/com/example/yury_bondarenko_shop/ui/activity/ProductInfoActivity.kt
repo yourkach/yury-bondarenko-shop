@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop.ui
+package com.example.yury_bondarenko_shop.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
