@@ -1,4 +1,14 @@
-package com.example.yury_bondarenko_shop.ui.activity
+package com.example.yury_bondarenko_shop.ui
+/*
+    private var savedProductIds: List<Long>
+        get() = sharedPreferences.getString(PRODUCT_TAG, null)
+            ?.split(",")
+            ?.mapNotNull { it.toLongOrNull() } ?: emptyList()
+        set(value) {
+            sharedPreferences.edit().putString(PRODUCT_TAG, value.joinToString(",")).apply()
+        }
+ */
+.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

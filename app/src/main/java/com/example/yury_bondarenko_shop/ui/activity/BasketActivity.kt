@@ -5,18 +5,19 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yury_bondarenko_shop.R
-import com.example.yury_bondarenko_shop.data.Product
+import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.ui.adapter.BasketAdapter
-import com.example.yury_bondarenko_shop.ui.presenter.BasketPresenter
-import com.example.yury_bondarenko_shop.view.BasketView
+import com.example.yury_bondarenko_shop.presenter.BasketPresenter
+import com.example.yury_bondarenko_shop.presenter.BasketView
 import kotlinx.android.synthetic.main.activity_basket.*
 import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 import moxy.presenter.InjectPresenter
 
-class BasketActivity : MvpAppCompatActivity(), BasketView {
+class BasketActivity : MvpAppCompatActivity(),
+    BasketView {
 
-    @InjectPresenter
-    lateinit var presenter: BasketPresenter
+    private val presenter: BasketPresenter by moxyPresenter { BasketPresenter() }
 
     private var adapter: BasketAdapter = BasketAdapter(
         onDeleteClick = { position ->

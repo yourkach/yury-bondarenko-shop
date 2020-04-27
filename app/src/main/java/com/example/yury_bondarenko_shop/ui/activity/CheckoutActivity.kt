@@ -6,10 +6,9 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yury_bondarenko_shop.ui.presenter.ProductPresenter
-import com.example.yury_bondarenko_shop.view.ProductView
+import com.example.yury_bondarenko_shop.presenter.ProductPresenter
+import com.example.yury_bondarenko_shop.presenter.ProductView
 import com.example.yury_bondarenko_shop.R
-import com.example.yury_bondarenko_shop.ui.activity.CatalogActivity.Companion.PRODUCT_ID
 import kotlinx.android.synthetic.main.activity_checkout.*
 
 class CheckoutActivity : AppCompatActivity(),
@@ -24,9 +23,6 @@ class CheckoutActivity : AppCompatActivity(),
         presenter.attachView(this)
         setListeners()
 
-        val productId = intent.extras?.getInt(PRODUCT_ID, -1)
-
-        Log.i("idProduct", productId.toString())
 
     }
 

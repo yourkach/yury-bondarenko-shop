@@ -1,18 +1,14 @@
 package com.example.yury_bondarenko_shop.ui.adapter
 
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.StrikethroughSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.yury_bondarenko_shop.R
-import com.example.yury_bondarenko_shop.data.Product
+import com.example.yury_bondarenko_shop.domain.model.Product
+import com.example.yury_bondarenko_shop.getStrikethroughSpannable
 import kotlinx.android.synthetic.main.item_basket_layout.view.*
-import kotlinx.android.synthetic.main.item_category_layout.view.*
 
 class BasketAdapter(
     val onDeleteClick: (pos: Int) -> Unit,
@@ -41,26 +37,20 @@ class BasketAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(product: Product) {
             itemView.apply {
-                itemName.text = product.getProductName()
-                if (product.getSalePercent() != 0) {
+                itemName.text = product.productName
+                if (product.salePercent != 0) {
                     itemDiscountPrice.visibility = View.VISIBLE
-                    itemDiscountPrice.text = formatPrice(product.calcDiscountPrice())
-                    val rawPrice = formatPrice(product.getRawPrice())
-                    itemMainPrice.text = getStrikethroughText(rawPrice)
+                    itemDiscountPrice.text = formatPrice(product.discountPrice)
+                    val rawPrice = formatPrice(product.price)
+                    itemMainPrice.text = getStrikethroughSpannable(rawPrice)
                 } else {
-                    itemMainPrice.text = formatPrice(product.getRawPrice())
+                    itemMainPrice.text = formatPrice(product.price)
                     itemDiscountPrice.visibility = View.GONE
                 }
                 itemDeleteIv.setOnClickListener {
                     if (adapterPosition != NO_POSITION) onDeleteClick(adapterPosition)
                 }
             }
-        }
-
-        private fun getStrikethroughText(text: String): SpannableString {
-            val spannable = SpannableString(text)
-            spannable.setSpan(StrikethroughSpan(), 0, text.length, 0)
-            return spannable
         }
 
     }

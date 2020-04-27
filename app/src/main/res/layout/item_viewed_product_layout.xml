@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="62dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/rounded_light_gray_background"
+    android:minWidth="100dp"
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp">
+
+    <TextView
+        android:id="@+id/viewedName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Товар 1" />
+
+    <TextView
+        android:id="@+id/viewedMainPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@+id/viewedDiscountPrice"
+        app:layout_constraintTop_toBottomOf="@+id/viewedName"
+        tools:text="120 P" />
+
+
+    <TextView
+        android:id="@+id/viewedDiscountPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="0dp"
+        android:paddingEnd="8dp"
+        android:singleLine="true"
+        android:textColor="@color/color_discount"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/viewedName"
+        app:layout_constraintTop_toTopOf="@+id/viewedMainPrice"
+        tools:text="1200 P" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

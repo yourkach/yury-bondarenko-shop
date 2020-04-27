@@ -1,6 +1,6 @@
-package com.example.yury_bondarenko_shop.view
+package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.data.Product
+import com.example.yury_bondarenko_shop.domain.model.Product
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType

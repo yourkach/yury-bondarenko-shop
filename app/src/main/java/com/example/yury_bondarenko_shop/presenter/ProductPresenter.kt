@@ -1,14 +1,14 @@
-package com.example.yury_bondarenko_shop.ui.presenter
+package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.data.Product
-import com.example.yury_bondarenko_shop.view.ProductView
-import com.example.yury_bondarenko_shop.model.CreateOrderModel
+import com.example.yury_bondarenko_shop.domain.model.Product
+import com.example.yury_bondarenko_shop.domain.model.CreateOrderModel
 import moxy.MvpPresenter
 
 class ProductPresenter : MvpPresenter<ProductView>() {
     private val itemsList: List<Product> = listOf()
 
-    private val model = CreateOrderModel()
+    private val model =
+        CreateOrderModel()
 
     fun checkFirstName(text: String) {
         if (lengthIsCorrect(text)) model.firstName = text
@@ -37,13 +37,6 @@ class ProductPresenter : MvpPresenter<ProductView>() {
         return text.matches(Regex("((\\+7|8)([0-9]){10})"))
     }
 
-    fun printBasket() {
-        itemsList.forEachIndexed { index, it ->
-            viewState.print("$index. ${it.getProductName()}: ${it.calcDiscountPrice()}")
-        }
-        viewState.print("Total: ${calcPurchaseSum()}")
-    }
-
-    private fun calcPurchaseSum(): Double = itemsList.sumByDouble { it.calcDiscountPrice() }
+    private fun calcPurchaseSum(): Double = itemsList.sumByDouble { it.discountPrice }
 }
 

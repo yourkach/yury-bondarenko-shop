@@ -2,54 +2,53 @@ package com.example.yury_bondarenko_shop.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yury_bondarenko_shop.R
-import com.example.yury_bondarenko_shop.ui.adapter.CategoryAdapter
-import com.example.yury_bondarenko_shop.ui.presenter.CatalogPresenter
-import com.example.yury_bondarenko_shop.view.CatalogView
+import com.example.yury_bondarenko_shop.data.ViewedProductDaoImpl
+import com.example.yury_bondarenko_shop.domain.model.Product
+import com.example.yury_bondarenko_shop.presenter.CatalogPresenter
+import com.example.yury_bondarenko_shop.presenter.CatalogView
+import com.example.yury_bondarenko_shop.sharedPreferences
+import com.example.yury_bondarenko_shop.ui.adapter.ViewedProductsAdapter
 import kotlinx.android.synthetic.main.activity_catalog.*
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class CatalogActivity : AppCompatActivity(), CatalogView {
+class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
-    private val presenter = CatalogPresenter()
+    private val presenter by moxyPresenter {
+        CatalogPresenter(
+            ViewedProductDaoImpl(sharedPreferences)
+        )
+    }
 
-    private val adapter = CategoryAdapter { category ->
-        presenter.removeItem(category)
+    private val adapter = ViewedProductsAdapter {
+        presenter.formatPrice(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
         setListeners()
+        setUpViewedRecycler()
+    }
 
-        catalogCategoryRv.layoutManager = LinearLayoutManager(this)
-        catalogCategoryRv.adapter = adapter
-
-        presenter.attachView(this)
-        presenter.setData()
+    private fun setUpViewedRecycler() {
+        catalogViewedProductsRv.apply {
+            layoutManager =
+                LinearLayoutManager(this@CatalogActivity, LinearLayoutManager.HORIZONTAL, false)
+            adapter = this@CatalogActivity.adapter
+        }
     }
 
     private fun setListeners() {
         catalogShowBasketBtn.setOnClickListener {
             startActivity(Intent(this, BasketActivity::class.java))
         }
-        catalogShowProductInfoBtn.setOnClickListener {
-            startActivity(Intent(this, ProductInfoActivity::class.java))
-        }
     }
 
-
-    override fun setCategoriesList(categories: List<String>) {
-        adapter.submitList(categories)
-    }
-
-    override fun removeItem(pos: Int) {
-        adapter.notifyItemRemoved(pos)
-    }
-
-    companion object {
-        const val PRODUCT_ID = "PRODUCT_ID"
+    override fun setViewedItemsList(newItems: List<Product>) {
+        adapter.setList(newItems)
     }
 
 }

@@ -24,4 +24,5 @@
     <string name="catalog_show_basket">корзина</string>
     <string name="basket_checkout">оформить заказ</string>
     <string name="basket_show_product_info">товар</string>
+    <string name="catalog_recently_viewed_lable">Вы недавно просматривали:</string>
 </resources>

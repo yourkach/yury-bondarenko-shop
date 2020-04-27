@@ -16,29 +16,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/catalogCategoryRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/catalogShowProductInfoBtn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/catalogHeader" />
 
-    <Button
-        android:id="@+id/catalogShowProductInfoBtn"
+    <TextView
+        android:id="@+id/catalogViewedLable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/catalog_recently_viewed_lable"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/catalogHeader" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/catalogViewedProductsRv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/button_rounded_black_background"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:text="@string/catalog_show_product_info"
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/catalogShowBasketBtn"
-        app:layout_constraintEnd_toEndOf="@+id/catalogShowBasketBtn"
-        app:layout_constraintStart_toStartOf="@+id/catalogShowBasketBtn" />
-
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/catalogViewedLable" />
 
     <Button
         android:id="@+id/catalogShowBasketBtn"

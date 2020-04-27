@@ -1,4 +1,4 @@
-package com.example.yury_bondarenko_shop.view
+package com.example.yury_bondarenko_shop.presenter
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy

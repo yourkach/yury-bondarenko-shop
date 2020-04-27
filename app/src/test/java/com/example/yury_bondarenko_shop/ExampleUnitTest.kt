@@ -1,5 +1,9 @@
 package com.example.yury_bondarenko_shop
 
+import com.example.yury_bondarenko_shop.domain.model.Product
+import kotlinx.serialization.builtins.list
+import kotlinx.serialization.json.Json
+import org.junit.Assert
 import org.junit.Test
 import kotlin.math.pow
 import kotlin.math.round
@@ -8,24 +12,94 @@ class ExampleUnitTest {
 
     @Test
     fun example() {
-        val numbers = listOf(
-            "+79855310868",
-            "+79855310868",
-            "880084545454",
-            "88008454545411",
-            "465456465465",
-            "784545487878",
-            "12125465415646",
-            "454658498797894",
-            "231321546545",
-            "231321321316548",
-            "78892135546",
-            "84456464641",
-            "89855310868"
+        val items: MutableList<Product> = mutableListOf(
+            Product(
+                12455.0,
+                15,
+                "Процессор Intel Core i5-9400F"
+            ),
+            Product(
+                11500.0,
+                25,
+                "Процессор AMD Ryzen 5 3500X"
+            ),
+            Product(
+                5450.0,
+                0,
+                "Материнская плата MSI B450M-A PRO MAX"
+            ),
+            Product(
+                17090.0,
+                0,
+                "Видеокарта GIGABYTE GeForce GTX 1650 SUPER 1755MHz PCI-E 3.0 4096MB 12000MHz 128 bit DVI HDMI DisplayPort HDCP WINDFORCE OC"
+            ),
+            Product(
+                25150.0,
+                8,
+                "Процессор AMD Ryzen 7 3700X"
+            ),
+            Product(
+                20890.0,
+                0,
+                "Видеокарта GIGABYTE GeForce GTX 1660 SUPER 1830MHz PCI-E 3.0 6144MB 14000MHz 192 bit HDMI 3xDisplayPort HDCP OC"
+            ),
+            Product(
+                13590.0,
+                5,
+                "Процессор AMD Ryzen 9 3950X"
+            ),
+            Product(
+                12540.0,
+                0,
+                "Процессор AMD Ryzen 5 3400G"
+            ),
+            Product(
+                16890.0,
+                0,
+                "Процессор AMD Ryzen Threadripper"
+            ),
+            Product(
+                5890.0,
+                0,
+                "Процессор Intel Core i3 Coffee Lake"
+            ),
+            Product(
+                27000.0,
+                35,
+                "Процессор Intel Core i7 Coffee Lake"
+            ),
+            Product(
+                3750.0,
+                0,
+                "Процессор AMD Ryzen 3 Summit Ridge"
+            ),
+            Product(
+                40250.0,
+                0,
+                "Процессор Intel Core i9-9900"
+            ),
+            Product(
+                40250.0,
+                0,
+                "Процессор Intel Core i9-9900"
+            ),
+            Product(
+                4650.0,
+                0,
+                "Материнская плата GIGABYTE B450M S2H (rev. 1.0)"
+            )
         )
-        numbers.forEach {
-            println(it + " ${numberIsCorrect(it)} ${it.length}")
+        val str = Json.stringify(Product.serializer().list, items)
+        println(str)
+        val list = Json.parse(Product.serializer().list, str)
+        list.forEach {
+            println(it.toString())
         }
+        println()
+        items.forEach {
+            println(it.toString())
+        }
+        Assert.assertArrayEquals(items.toTypedArray(), list.toTypedArray())
     }
 }
 

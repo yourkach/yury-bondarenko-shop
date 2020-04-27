@@ -6,6 +6,9 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlinx-serialization'
+
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -28,6 +31,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -43,7 +50,12 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //Moxy
-    implementation "com.github.moxy-community:moxy:2.1.2"
-    implementation "com.github.moxy-community:moxy-app-compat:2.1.2"
-    kapt "com.github.moxy-community:moxy-compiler:2.1.2"
+    def moxyVersion = "2.1.2"
+    implementation "com.github.moxy-community:moxy:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-androidx:$moxyVersion"
+    implementation "com.github.moxy-community:moxy-ktx:$moxyVersion"
+    kapt "com.github.moxy-community:moxy-compiler:$moxyVersion"
+
+    //Serialization
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
 }
