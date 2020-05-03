@@ -2,9 +2,11 @@ package com.example.yury_bondarenko_shop.presenter
 
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.domain.model.CreateOrderModel
+import moxy.InjectViewState
 import moxy.MvpPresenter
 
-class ProductPresenter : MvpPresenter<ProductView>() {
+@InjectViewState
+class CheckoutPresenter : MvpPresenter<CheckoutView>() {
     private val itemsList: List<Product> = listOf()
 
     private val model =

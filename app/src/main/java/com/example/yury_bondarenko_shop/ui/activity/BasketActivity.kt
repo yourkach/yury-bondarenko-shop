@@ -2,31 +2,49 @@ package com.example.yury_bondarenko_shop.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yury_bondarenko_shop.R
-import com.example.yury_bondarenko_shop.domain.model.Product
-import com.example.yury_bondarenko_shop.ui.adapter.BasketAdapter
+import com.example.yury_bondarenko_shop.domain.model.BasketItem
+import com.example.yury_bondarenko_shop.ui.adapter.basket.BasketAdapter
 import com.example.yury_bondarenko_shop.presenter.BasketPresenter
 import com.example.yury_bondarenko_shop.presenter.BasketView
+import com.example.yury_bondarenko_shop.ui.adapter.basket.BasketItemClickCallback
 import kotlinx.android.synthetic.main.activity_basket.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
-import moxy.presenter.InjectPresenter
 
 class BasketActivity : MvpAppCompatActivity(),
     BasketView {
 
-    private val presenter: BasketPresenter by moxyPresenter { BasketPresenter() }
 
-    private var adapter: BasketAdapter = BasketAdapter(
-        onDeleteClick = { position ->
-            presenter.onBasketItemDeleteClick(position)
-        },
-        formatPrice = { price ->
-            presenter.formatPrice(price)
-        }
-    )
+    private val presenter: BasketPresenter by moxyPresenter {
+        BasketPresenter()
+    }
+
+    private var basketAdapter: BasketAdapter =
+        BasketAdapter(
+            object : BasketItemClickCallback {
+                override fun onDeleteClick(pos: Int) {
+                    presenter.onBasketItemDeleteClick(pos)
+                }
+
+                override fun onCountPlusClick(pos: Int) {
+                    presenter.onItemCountPlusClick(pos)
+                }
+
+                override fun onCountMinusClick(pos: Int) {
+                    presenter.onItemCountMinusClick(pos)
+                }
+
+                override fun onItemClick(pos: Int) {
+                    presenter.onItemClick(pos)
+                }
+
+            },
+            formatPrice = { price ->
+                presenter.formatPrice(price)
+            }
+        )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +56,7 @@ class BasketActivity : MvpAppCompatActivity(),
     private fun setUpRecycler() {
         basketItemsRv.apply {
             layoutManager = LinearLayoutManager(this@BasketActivity)
-            adapter = this@BasketActivity.adapter
-            addItemDecoration(DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL))
+            adapter = basketAdapter
         }
     }
 
@@ -49,30 +66,24 @@ class BasketActivity : MvpAppCompatActivity(),
             finish()
         }
         basketCheckoutBtn.setOnClickListener {
-            startActivity(Intent(this, CheckoutActivity::class.java))
-        }
-        basketAddItemBtn.setOnClickListener {
-            presenter.onAddItemClick()
+            presenter.onCheckoutClick()
         }
     }
 
-    override fun setBasketItems(items: List<Product>) {
-        adapter.submitList(items)
+
+    override fun startCheckoutActivity() {
+        startActivity(Intent(this, CheckoutActivity::class.java))
     }
 
-    override fun updateBasketItems() {
-        adapter.notifyDataSetChanged()
-    }
-
-    override fun removeItem(pos: Int) {
-        adapter.notifyItemRemoved(pos)
-    }
-
-    override fun addItem(pos: Int) {
-        adapter.notifyItemInserted(pos)
+    override fun setNewBasketItems(items: List<BasketItem>) {
+        basketAdapter.setList(items)
     }
 
     override fun smoothScrollToPosition(pos: Int) {
         basketItemsRv.smoothScrollToPosition(pos)
+    }
+
+    override fun setTotalPriceText(text: String) {
+        basketTotalPrice.text = text
     }
 }

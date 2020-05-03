@@ -16,8 +16,9 @@ class ViewedProductsAdapter(private val formatPrice: (price: Double) -> String) 
     private var items: List<Product> = listOf()
 
     fun setList(newItems: List<Product>) {
+        val diff = DiffUtil.calculateDiff(ProductDiffUtilCallback(items, newItems))
         items = newItems
-        DiffUtil.calculateDiff(ProductDiffUtilCallback(items, newItems)).dispatchUpdatesTo(this)
+        diff.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(

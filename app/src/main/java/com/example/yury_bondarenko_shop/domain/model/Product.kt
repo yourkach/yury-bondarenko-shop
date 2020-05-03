@@ -1,18 +1,22 @@
 package com.example.yury_bondarenko_shop.domain.model
 
+import android.os.Parcelable
+import com.example.yury_bondarenko_shop.domain.RemoteProduct
+import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.UnstableDefault
-import kotlinx.serialization.json.*
 
 @Serializable
+@Parcelize
 data class Product(
+    val id: String,
     /**
      * Must be positive
      */
     val price: Double,
     val salePercent: Int = 0,
-    val productName: String
-) {
+    val productName: String,
+    val imageUrl: String = "" //TODO
+) : Parcelable {
     /**
      * price with applied discount determined by [salePercent]
      * If [salePercent] is more than 100 then product will have negative price
@@ -23,3 +27,7 @@ data class Product(
 }
 
 
+class ProductFactory {
+    fun createProduct(remote: RemoteProduct): Product =
+        Product(remote.id, remote.price, remote.discountPercent, remote.name, remote.imageUrl)
+}

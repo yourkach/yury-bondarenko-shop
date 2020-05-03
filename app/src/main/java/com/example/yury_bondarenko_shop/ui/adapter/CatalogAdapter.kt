@@ -4,28 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.getStrikethroughSpannable
-import kotlinx.android.synthetic.main.item_basket_layout.view.*
+import kotlinx.android.synthetic.main.item_catalog_layout.view.*
 
-class BasketAdapter(
-    val onDeleteClick: (pos: Int) -> Unit,
+class CatalogAdapter(
+    val onItemClick: (product: Product) -> Unit,
     val formatPrice: (price: Double) -> String
-) : RecyclerView.Adapter<BasketAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
 
-    private var items: List<Product> = listOf<Product>()
-
-    fun submitList(basketItems: List<Product>) {
-        items = basketItems
-        notifyDataSetChanged()
-    }
+    private var items = listOf<Product>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_basket_layout, parent, false)
+                .inflate(R.layout.item_catalog_layout, parent, false)
         )
 
     override fun getItemCount(): Int = items.size
@@ -34,26 +28,30 @@ class BasketAdapter(
         holder.bind(items[position])
     }
 
+    fun setList(newItems: List<Product>) {
+        items = newItems
+        notifyDataSetChanged()
+    }
+
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(product: Product) {
             itemView.apply {
-                itemName.text = product.productName
+                catalogItemName.text = product.productName
                 if (product.salePercent != 0) {
-                    itemDiscountPrice.visibility = View.VISIBLE
-                    itemDiscountPrice.text = formatPrice(product.discountPrice)
+                    catalogItemMainPrice.text = formatPrice(product.discountPrice)
                     val rawPrice = formatPrice(product.price)
-                    itemMainPrice.text = getStrikethroughSpannable(rawPrice)
+                    catalogItemRawPrice.visibility = View.VISIBLE
+                    catalogItemRawPrice.text = getStrikethroughSpannable(rawPrice)
                 } else {
-                    itemMainPrice.text = formatPrice(product.price)
-                    itemDiscountPrice.visibility = View.GONE
+                    catalogItemMainPrice.text = formatPrice(product.price)
+                    catalogItemRawPrice.visibility = View.GONE
                 }
-                itemDeleteIv.setOnClickListener {
-                    if (adapterPosition != NO_POSITION) onDeleteClick(adapterPosition)
+                itemCatalogRootCl.setOnClickListener {
+                    onItemClick(items[adapterPosition])
                 }
             }
         }
-
     }
-
 
 }

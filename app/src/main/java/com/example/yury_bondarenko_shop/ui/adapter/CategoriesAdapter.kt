@@ -1,0 +1,40 @@
+package com.example.yury_bondarenko_shop.ui.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yury_bondarenko_shop.R
+import kotlinx.android.synthetic.main.item_category_layout.view.*
+
+class CategoriesAdapter(
+    private val onCategoryClick: (pos: Int) -> Unit
+) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+
+    private var categoriesList = listOf<String>()
+
+    fun setList(categories: List<String>) {
+        categoriesList = categories
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+        LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_category_layout, parent, false)
+    )
+
+    override fun getItemCount(): Int = categoriesList.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(categoriesList[position])
+    }
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(categoryName: String) {
+            itemView.categoryNameTv.text = categoryName
+            itemView.categoryCl.setOnClickListener {
+                onCategoryClick(adapterPosition)
+            }
+        }
+    }
+}

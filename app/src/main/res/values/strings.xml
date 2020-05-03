@@ -19,10 +19,10 @@
     <string name="checkout_phone_format_hint">Пример, 89999999999 или +79999999999</string>
     <string name="product_info_header">Информация о товаре</string>
     <string name="basket_header">Корзина</string>
-    <string name="catalog_header">Каталог</string>
-    <string name="catalog_show_product_info">товар</string>
-    <string name="catalog_show_basket">корзина</string>
     <string name="basket_checkout">оформить заказ</string>
     <string name="basket_show_product_info">товар</string>
-    <string name="catalog_recently_viewed_lable">Вы недавно просматривали:</string>
+    <string name="item_delete_label">Удалить</string>
+    <string name="item_piece_label">шт.</string>
+    <string name="catalog_header">Каталог</string>
+    <string name="detailed_add_to_basket">В корзину</string>
 </resources>

@@ -2,41 +2,135 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemRootCl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:padding="16dp">
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/rounded_white_background"
+    android:padding="12dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/basketItemCountCl"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/basketItemDeleteLl"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/basketItemDeleteLl">
+
+        <ImageView
+            android:id="@+id/basketItemCountPlusIv"
+            android:layout_width="36dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/button_rounded_black_background"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@+id/basketItemCountTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/basketItemCountPieceLabel"
+            app:layout_constraintTop_toTopOf="@+id/basketItemCountTv"
+            app:srcCompat="@drawable/ic_plus" />
+
+        <ImageView
+            android:id="@+id/basketItemCountMinusIv"
+            android:layout_width="36dp"
+            android:layout_height="0dp"
+            android:background="@drawable/button_rounded_black_background"
+            android:scaleType="center"
+            app:layout_constraintBottom_toBottomOf="@+id/basketItemCountTv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/basketItemCountTv"
+            app:srcCompat="@drawable/ic_minus" />
+
+        <TextView
+            android:id="@+id/basketItemCountTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:paddingEnd="2dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/basketItemCountMinusIv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/basketItemCountPieceLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_piece_label"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/basketItemCountTv"
+            app:layout_constraintStart_toEndOf="@+id/basketItemCountTv"
+            app:layout_constraintTop_toTopOf="@+id/basketItemCountTv" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/basketItemDeleteLl"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:foreground="?selectableItemBackground"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <ImageView
+            android:id="@+id/basketItemDeleteIv"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+
+        <TextView
+            android:id="@+id/basketItemDeleteLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_delete_label"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/basketItemDeleteIv"
+            app:layout_constraintStart_toEndOf="@+id/basketItemDeleteIv"
+            app:layout_constraintTop_toTopOf="@+id/basketItemDeleteIv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/basketItemDetailsCl" />
 
     <ImageView
-        android:id="@+id/itemPicIv"
+        android:id="@+id/basketItemPicIv"
         android:layout_width="@dimen/basket_item_pic"
         android:layout_height="@dimen/basket_item_pic"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_basket_item_stub" />
+        app:srcCompat="@drawable/ic_catalog_item_stub" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/basketItemDetailsCl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:minHeight="@dimen/basket_item_pic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/itemPicIv"
-        app:layout_constraintTop_toTopOf="@+id/itemPicIv">
-
-        <ImageView
-            android:id="@+id/itemDeleteIv"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:foreground="?selectableItemBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_delete" />
+        app:layout_constraintStart_toEndOf="@+id/basketItemPicIv"
+        app:layout_constraintTop_toTopOf="@+id/basketItemPicIv">
 
         <TextView
-            android:id="@+id/itemDiscountPrice"
+            android:id="@+id/basketItemDiscountPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -49,18 +143,18 @@
             tools:text="2 807 P" />
 
         <TextView
-            android:id="@+id/itemMainPrice"
+            android:id="@+id/basketItemMainPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDiscountPrice"
+            app:layout_constraintTop_toBottomOf="@+id/basketItemDiscountPrice"
             tools:text="3 090 P" />
 
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/basketItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="14dp"
@@ -69,7 +163,7 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemMainPrice"
+            app:layout_constraintTop_toBottomOf="@+id/basketItemMainPrice"
             tools:text="Процессор Intel Core i5-9400F" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

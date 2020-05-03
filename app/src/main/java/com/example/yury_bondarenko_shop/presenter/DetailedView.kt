@@ -1,21 +1,18 @@
 package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.domain.model.Product
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
-interface CatalogView : MvpView {
+interface DetailedView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun startDetailedActivity(product: Product)
+    fun setProductPrice(mainPrice: String)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun startBasketActivity()
+    fun setProductPrice(discountPrice: String, rawPrice: String)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun setProductList(products: List<Product>)
+    fun setProductName(name: String)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showMessage(message: String)
 }

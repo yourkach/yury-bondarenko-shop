@@ -5,13 +5,7 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
-interface ProductView : MvpView {
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun print(price: Double)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
-    fun print(text: String)
+interface CheckoutView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorLastName(visible: Boolean)
@@ -24,4 +18,16 @@ interface ProductView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorPhone(visible: Boolean)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setRawPrice(formattedPrice: String)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setDiscount(formattedDiscount: String)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setTotalPrice(formattedPrice: String)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setBasketItemsCount(count: Int)
 }

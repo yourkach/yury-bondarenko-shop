@@ -6,24 +6,22 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.example.yury_bondarenko_shop.presenter.ProductPresenter
-import com.example.yury_bondarenko_shop.presenter.ProductView
+import com.example.yury_bondarenko_shop.presenter.CheckoutPresenter
+import com.example.yury_bondarenko_shop.presenter.CheckoutView
 import com.example.yury_bondarenko_shop.R
 import kotlinx.android.synthetic.main.activity_checkout.*
 
 class CheckoutActivity : AppCompatActivity(),
-    ProductView {
+    CheckoutView {
 
     private val presenter =
-        ProductPresenter()
+        CheckoutPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
         presenter.attachView(this)
         setListeners()
-
-
     }
 
     private fun setListeners() {
@@ -34,7 +32,6 @@ class CheckoutActivity : AppCompatActivity(),
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkFirstName(s.toString())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -43,7 +40,6 @@ class CheckoutActivity : AppCompatActivity(),
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkMiddleName(s.toString())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -52,7 +48,6 @@ class CheckoutActivity : AppCompatActivity(),
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkLastName(s.toString())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -61,7 +56,6 @@ class CheckoutActivity : AppCompatActivity(),
             override fun afterTextChanged(s: Editable?) {
                 presenter.checkPhoneNumber(s.toString())
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -72,14 +66,6 @@ class CheckoutActivity : AppCompatActivity(),
         val drawable = if (visible) R.drawable.ic_error else 0
 
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
-    }
-
-    override fun print(price: Double) {
-        Log.i("productView", price.toString())
-    }
-
-    override fun print(text: String) {
-        Log.i("productView", text)
     }
 
     override fun showErrorLastName(visible: Boolean) {
@@ -98,24 +84,21 @@ class CheckoutActivity : AppCompatActivity(),
         checkoutPhoneNumber.showErrorIcon(visible)
     }
 
-
-    /*
-    fun setRawPrice(formattedPrice: String) {
+    override fun setRawPrice(formattedPrice: String) {
         checkoutRawPrice.text = formattedPrice
     }
 
-    fun setDiscount(formattedDiscount: String) {
+    override fun setDiscount(formattedDiscount: String) {
         checkoutDiscountAmount.text = formattedDiscount
     }
 
-    fun setTotalPrice(formattedPrice: String) {
+    override fun setTotalPrice(formattedPrice: String) {
         checkoutTotalPrice.text = formattedPrice
     }
 
-    fun setBasketItemsCount(count: Int) {
+    override fun setBasketItemsCount(count: Int) {
         checkoutProductsCount.text = "($count)"
     }
-    */
 }
 
 

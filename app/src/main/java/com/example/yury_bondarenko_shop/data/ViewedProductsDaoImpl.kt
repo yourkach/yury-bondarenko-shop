@@ -1,14 +1,14 @@
 package com.example.yury_bondarenko_shop.data
 
 import android.content.SharedPreferences
-import com.example.yury_bondarenko_shop.domain.ViewedProductsDao
+import com.example.yury_bondarenko_shop.domain.ViewedProductDao
 import com.example.yury_bondarenko_shop.domain.model.Product
 import kotlinx.serialization.builtins.list
 import kotlinx.serialization.json.Json
 
 class ViewedProductDaoImpl(
     private val sharedPreferences: SharedPreferences
-) : ViewedProductsDao {
+) : ViewedProductDao {
 
     private var savedProducts: List<Product>
         get() {

@@ -2,7 +2,7 @@ package com.example.yury_bondarenko_shop.domain
 
 import com.example.yury_bondarenko_shop.domain.model.Product
 
-interface ViewedProductsDao {
+interface ViewedProductDao {
     /**
      * save this [product] as viewed
      */
