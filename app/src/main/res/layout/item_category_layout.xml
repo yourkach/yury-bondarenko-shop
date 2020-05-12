@@ -6,30 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/categoryPicIv"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_catalog_item_stub" />
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/categoryNameTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:padding="8dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryPicIv"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Category" />
 
 

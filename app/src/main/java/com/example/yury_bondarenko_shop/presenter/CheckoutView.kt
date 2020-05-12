@@ -2,6 +2,7 @@ package com.example.yury_bondarenko_shop.presenter
 
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
@@ -14,13 +15,13 @@ interface CheckoutView : MvpView {
     fun showErrorFirstName(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
-    fun showErrorMiddleName(visible: Boolean)
-
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showErrorPhone(visible: Boolean)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setRawPrice(formattedPrice: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showMessage(stringResId: Int)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setDiscount(formattedDiscount: String)

@@ -16,14 +16,18 @@
 
         <TextView
             android:id="@+id/catalogHeaderLabel"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:singleLine="true"
             android:text="@string/catalog_header"
+            android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="@dimen/header_label_font_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/catalogOpenBasketIv"
+            app:layout_constraintStart_toEndOf="@+id/catalogBackIv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -59,6 +63,34 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/catalogHeaderLabel"
             app:srcCompat="@drawable/ic_shopping_cart" />
+
+        <TextView
+            android:id="@+id/catalogBasketItemsCountTv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/basket_count_top_margin"
+            android:background="@drawable/bg_round_items_count"
+            android:fontFamily="sans-serif-black"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/catalogOpenBasketIv"
+            app:layout_constraintStart_toEndOf="@+id/catalogOpenBasketIv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9+"
+            tools:visibility="visible" />
+
+        <SearchView
+            android:id="@+id/catalogSearchView"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:maxWidth="305dp"
+            android:queryBackground="@drawable/bg_rounded_light_gray"
+            android:queryHint="@string/catalog_search_hint"
+            app:layout_constraintBottom_toBottomOf="@+id/catalogOpenBasketIv"
+            app:layout_constraintEnd_toStartOf="@+id/catalogOpenBasketIv"
+            app:layout_constraintTop_toTopOf="@+id/catalogOpenBasketIv" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#808080</color>
     <color name="colorPrimaryDark">#303030</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="light_gray">#ddd</color>
-    <color name="color_discount">#FF4218</color>
+    <color name="mainBackgroundColor">#FAFAFA</color>
+    <color name="lightGray">#ddd</color>
+    <color name="colorDiscount">#FF4218</color>
 </resources>

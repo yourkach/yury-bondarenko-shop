@@ -9,7 +9,8 @@
     android:layout_marginTop="2dp"
     android:layout_marginEnd="5dp"
     android:layout_marginBottom="2dp"
-    android:background="@drawable/rounded_white_background"
+    android:background="@drawable/bg_rounded_white"
+    android:elevation="3dp"
     android:padding="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,24 +26,24 @@
             android:layout_width="36dp"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
-            android:background="@drawable/button_rounded_black_background"
+            android:background="@drawable/bg_button_rounded_black"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="@+id/basketItemCountTv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/basketItemCountPieceLabel"
             app:layout_constraintTop_toTopOf="@+id/basketItemCountTv"
-            app:srcCompat="@drawable/ic_plus" />
+            app:srcCompat="@drawable/ic_plus_white" />
 
         <ImageView
             android:id="@+id/basketItemCountMinusIv"
             android:layout_width="36dp"
             android:layout_height="0dp"
-            android:background="@drawable/button_rounded_black_background"
+            android:background="@drawable/bg_button_rounded_black"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="@+id/basketItemCountTv"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/basketItemCountTv"
-            app:srcCompat="@drawable/ic_minus" />
+            app:srcCompat="@drawable/ic_minus_white" />
 
         <TextView
             android:id="@+id/basketItemCountTv"
@@ -110,14 +111,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/basketItemDetailsCl" />
 
-    <ImageView
-        android:id="@+id/basketItemPicIv"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/basketItemPicCv"
         android:layout_width="@dimen/basket_item_pic"
         android:layout_height="@dimen/basket_item_pic"
-        android:scaleType="centerCrop"
+        android:layout_marginStart="3dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_catalog_item_stub" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/basketItemPicIv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_catalog_item_stub" />
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/basketItemDetailsCl"
@@ -126,8 +136,8 @@
         android:layout_marginStart="16dp"
         android:minHeight="@dimen/basket_item_pic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/basketItemPicIv"
-        app:layout_constraintTop_toTopOf="@+id/basketItemPicIv">
+        app:layout_constraintStart_toEndOf="@+id/basketItemPicCv"
+        app:layout_constraintTop_toTopOf="@+id/basketItemPicCv">
 
         <TextView
             android:id="@+id/basketItemDiscountPrice"
@@ -135,7 +145,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:paddingBottom="10dp"
-            android:textColor="@color/color_discount"
+            android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"

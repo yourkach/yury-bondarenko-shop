@@ -1,74 +1,37 @@
 package com.example.yury_bondarenko_shop.presenter
 
+import com.example.yury_bondarenko_shop.domain.BasketItemsDao
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
-import com.example.yury_bondarenko_shop.domain.model.Product
+import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import moxy.InjectViewState
 import moxy.MvpPresenter
-import java.text.DecimalFormat
+import javax.inject.Inject
 
 @InjectViewState
-class BasketPresenter : MvpPresenter<BasketView>() {
+class BasketPresenter @Inject constructor(
+    private val basketItemsDao: BasketItemsDao,
+    private val commonPriceFormatter: CommonPriceFormatter
+) :
+    MvpPresenter<BasketView>() {
 
-    private val currencySign = "₽"
-
-
-    private val basketItems: MutableList<BasketItem> =
-        //TODO remove test data setting
-        mutableListOf(
-            BasketItem(
-                Product(
-                    "1",
-                    12455.0,
-                    15,
-                    "Процессор Intel Core i5-9400F"
-                )
-            ),
-            BasketItem(
-                Product(
-                    "2",
-                    11500.0,
-                    25,
-                    "Процессор AMD Ryzen 5 3500X"
-                )
-            ),
-            BasketItem(
-                Product(
-                    "3",
-                    5450.0,
-                    0,
-                    "Материнская плата MSI B450M-A PRO MAX"
-                )
-            ),
-            BasketItem(
-                Product(
-                    "4",
-                    17090.0,
-                    0,
-                    "Видеокарта GIGABYTE GeForce GTX 1650 SUPER 1755MHz PCI-E 3.0 4096MB 12000MHz 128 bit DVI HDMI DisplayPort HDCP WINDFORCE OC"
-                )
-            ),
-            BasketItem(
-                Product(
-                    "5",
-                    25150.0,
-                    8,
-                    "Процессор AMD Ryzen 7 3700X"
-                )
-            ),
-            BasketItem(
-                Product(
-                    "6",
-                    20890.0,
-                    0,
-                    "Видеокарта GIGABYTE GeForce GTX 1660 SUPER 1830MHz PCI-E 3.0 6144MB 14000MHz 192 bit HDMI 3xDisplayPort HDCP OC"
-                )
-            )
-        )
+    private var basketItems: MutableList<BasketItem> = basketItemsDao.getAllItems().toMutableList()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         updateBasketItemsView()
         updateBasketTotalPrice()
+    }
+
+    fun onViewPause() {
+        basketItemsDao.setAllItems(basketItems)
+    }
+
+    fun onViewResume() {
+        if (basketItems.sumBy { it.count } != basketItemsDao.getItemsCount()) {
+            basketItems = basketItemsDao.getAllItems().toMutableList()
+            viewState.setNewBasketItems(basketItems)
+            updateBasketTotalPrice()
+        }
     }
 
     fun onBasketItemDeleteClick(pos: Int) {
@@ -103,7 +66,7 @@ class BasketPresenter : MvpPresenter<BasketView>() {
     }
 
     fun onItemClick(pos: Int) {
-        //TODO("Start detailed activity")
+        viewState.startDetailedActivity(basketItems[pos].product)
     }
 
     private fun updateBasketTotalPrice() {
@@ -111,10 +74,7 @@ class BasketPresenter : MvpPresenter<BasketView>() {
         viewState.setTotalPriceText(formatPrice(totalPrice))
     }
 
-    fun formatPrice(price: Double): String {
-        val dec = DecimalFormat("#,###")
-        return "${dec.format(price)} $currencySign"
-    }
+    fun formatPrice(price: Double): String = commonPriceFormatter.formatPrice(price)
 
 
 }

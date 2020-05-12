@@ -1,36 +1,82 @@
 package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.domain.model.Product
-import com.example.yury_bondarenko_shop.domain.model.CreateOrderModel
+import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.domain.BasketItemsDao
+import com.example.yury_bondarenko_shop.domain.CheckoutPriceFormatter
+import com.example.yury_bondarenko_shop.domain.MainApi
+import com.example.yury_bondarenko_shop.domain.model.BasketItem
+import com.example.yury_bondarenko_shop.domain.model.OrderModel
+import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
+import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import moxy.MvpPresenter
+import javax.inject.Inject
 
 @InjectViewState
-class CheckoutPresenter : MvpPresenter<CheckoutView>() {
-    private val itemsList: List<Product> = listOf()
+class CheckoutPresenter @Inject constructor(
+    private val mainApi: MainApi,
+    private val basketItemsDao: BasketItemsDao,
+    private val checkoutPriceFormatter: CheckoutPriceFormatter
+) : BasePresenter<CheckoutView>() {
 
-    private val model =
-        CreateOrderModel()
+    private lateinit var basketItems: List<BasketItem>
 
-    fun checkFirstName(text: String) {
-        if (lengthIsCorrect(text)) model.firstName = text
+    private val model = OrderModel()
+
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        setOrderInfo()
+    }
+
+    private fun setOrderInfo() {
+        basketItems = basketItemsDao.getAllItems()
+        viewState.setBasketItemsCount(basketItems.sumBy { it.count })
+        viewState.setTotalPrice(checkoutPriceFormatter.formatPrice(calcPurchaseDiscountSum()))
+        viewState.setRawPrice(checkoutPriceFormatter.formatPrice(calcPurchaseRawPricesSum()))
+        viewState.setDiscount(checkoutPriceFormatter.formatPrice(calcTotalDiscount()))
+    }
+
+    fun onFirstNameChanged(text: String) {
+        model.firstName = text
         viewState.showErrorFirstName(!lengthIsCorrect(text))
     }
 
-    fun checkLastName(text: String) {
-        if (lengthIsCorrect(text)) model.lastName = text
+    fun onLastNameChanged(text: String) {
+        model.lastName = text
         viewState.showErrorLastName(!lengthIsCorrect(text))
     }
 
-    fun checkMiddleName(text: String) {
-        if (lengthIsCorrect(text)) model.middleName = text
-        viewState.showErrorMiddleName(!lengthIsCorrect(text))
+    fun onPhoneNumberChanged(text: String) {
+        model.phoneNumber = text
+        viewState.showErrorPhone(!numberIsCorrect(text))
     }
 
-    fun checkPhoneNumber(text: String) {
-        val isCorrect = numberIsCorrect(text)
-        if (isCorrect) model.phoneNumber = text
-        viewState.showErrorPhone(!isCorrect)
+    fun onPaymentMethodChecked(newPaymentType: RemoteOrder.PaymentType) {
+        model.paymentType = newPaymentType
+    }
+
+    fun onMakeOrderClick() {
+        if (orderModelIsCorrect()) {
+            val remoteOrder =
+                RemoteOrder(
+                    model.firstName,
+                    model.lastName,
+                    model.phoneNumber,
+                    model.paymentType,
+                    basketItems.map { RemoteOrder.Item(it.product.id, it.count) }
+                )
+            launch {
+                //TODO("send order")
+                viewState.showMessage(R.string.msg_order_processed)
+            }
+        } else {
+            viewState.showMessage(R.string.err_incorrect_fields_value)
+        }
+    }
+
+    private fun orderModelIsCorrect(): Boolean {
+        return lengthIsCorrect(model.firstName)
+                && lengthIsCorrect(model.lastName)
+                && numberIsCorrect(model.phoneNumber)
     }
 
     private fun lengthIsCorrect(text: String): Boolean = text.length > 2
@@ -39,6 +85,12 @@ class CheckoutPresenter : MvpPresenter<CheckoutView>() {
         return text.matches(Regex("((\\+7|8)([0-9]){10})"))
     }
 
-    private fun calcPurchaseSum(): Double = itemsList.sumByDouble { it.discountPrice }
+    private fun calcPurchaseDiscountSum(): Double =
+        basketItems.sumByDouble { it.product.discountPrice * it.count }
+
+    private fun calcPurchaseRawPricesSum(): Double =
+        basketItems.sumByDouble { it.product.price * it.count }
+
+    private fun calcTotalDiscount(): Double = calcPurchaseRawPricesSum() - calcPurchaseDiscountSum()
 }
 

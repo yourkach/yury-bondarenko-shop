@@ -55,6 +55,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#F3F3F3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,260 +66,283 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/checkoutPersonalDataLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/checkout_personal_data"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/checkoutLastName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="@string/checkout_hint_last_name"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutPersonalDataLabel" />
-
-            <EditText
-                android:id="@+id/checkoutFirstName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="@string/checkout_hint_first_name"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutLastName" />
-
-            <EditText
-                android:id="@+id/checkoutMiddleName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="@string/checkout_hint_middle_name"
-                android:inputType="textPersonName"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutFirstName" />
-
-            <EditText
-                android:id="@+id/checkoutPhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:digits="0123456789+"
-                android:ems="10"
-                android:fontFamily="sans-serif"
-                android:hint="@string/checkout_hint_phone"
-                android:inputType="phone"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutMiddleName" />
-
-            <TextView
-                android:id="@+id/checkoutPhoneFormatHint"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/checkout_phone_format_hint"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPhoneNumber"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutPhoneNumber" />
-
-            <TextView
-                android:id="@+id/checkoutPaymentMethodLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-
-                android:fontFamily="sans-serif-light"
-                android:text="@string/checkout_payment_method"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutPhoneFormatHint" />
-
-            <RadioGroup
-                android:id="@+id/checkoutPaymentMethodGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                app:layout_constraintLeft_toLeftOf="@id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@id/checkoutPaymentMethodLabel"
-
-                >
-
-                <RadioButton
-                    android:id="@+id/checkoutRadioCash"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/checkout_payment_cash"
-                    android:textSize="20sp" />
-
-                <RadioButton
-                    android:id="@+id/checkoutRadioCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="sans-serif"
-                    android:text="@string/checkout_payment_card"
-                    android:textSize="20sp" />
-            </RadioGroup>
-
-            <View
-                android:id="@+id/checkoutPayDivider"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/checkoutPersonalDataCl"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="24dp"
-                android:background="?android:attr/listDivider"
+                android:layout_height="wrap_content"
+                android:background="@color/mainBackgroundColor"
+                android:elevation="1dp"
+                android:paddingStart="@dimen/checkout_item_start_margin"
+                android:paddingEnd="@dimen/checkout_item_start_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkoutPaymentMethodGroup" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/checkoutOrderDetailsLabel"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/checkoutPersonalDataLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/checkout_personal_data"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/checkoutLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/checkout_hint_last_name"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutPersonalDataLabel" />
+
+                <EditText
+                    android:id="@+id/checkoutFirstName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:ems="10"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/checkout_hint_first_name"
+                    android:inputType="textPersonName"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutLastName" />
+
+                <EditText
+                    android:id="@+id/checkoutPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:digits="0123456789+"
+                    android:ems="10"
+                    android:fontFamily="sans-serif"
+                    android:hint="@string/checkout_hint_phone"
+                    android:inputType="phone"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutFirstName" />
+
+                <TextView
+                    android:id="@+id/checkoutPhoneFormatHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/checkout_phone_format_hint"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutPhoneNumber" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/checkoutPaymentCl"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/mainBackgroundColor"
+                android:elevation="1dp"
+                android:paddingStart="@dimen/checkout_item_start_margin"
+                android:paddingEnd="@dimen/checkout_item_start_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutPersonalDataCl">
 
-                android:fontFamily="sans-serif-light"
-                android:text="@string/checkout_order_details"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutPayDivider" />
+                <TextView
+                    android:id="@+id/checkoutPaymentMethodLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/checkout_payment_method"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/checkoutProductsLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/checkout_basket_items"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutOrderDetailsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutOrderDetailsLabel" />
+                <RadioGroup
+                    android:id="@+id/checkoutPaymentMethodGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/checkoutProductsCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@+id/checkoutProductsLabel"
-                app:layout_constraintTop_toTopOf="@+id/checkoutProductsLabel"
-                tools:text="(1)" />
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:checkedButton="@id/checkoutRadioCash"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutPaymentMethodLabel">
 
-            <TextView
-                android:id="@+id/checkoutRawPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
+                    <RadioButton
+                        android:id="@+id/checkoutRadioCash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/checkout_payment_cash"
+                        android:textSize="20sp" />
+
+                    <RadioButton
+                        android:id="@+id/checkoutRadioCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@string/checkout_payment_card"
+                        android:textSize="20sp" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/checkoutOrderDetailsCl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:background="@color/mainBackgroundColor"
+                android:elevation="1dp"
+                android:paddingStart="@dimen/checkout_item_start_margin"
+                android:paddingEnd="@dimen/checkout_item_start_margin"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/checkoutProductsLabel"
-                tools:text="1500 Р" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutPaymentCl">
 
-            <TextView
-                android:id="@+id/checkoutDiscountLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/checkout_discount"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/checkoutOrderDetailsLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutProductsLabel" />
+                <TextView
+                    android:id="@+id/checkoutOrderDetailsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-            <TextView
-                android:id="@+id/checkoutDiscountMinusSign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="@string/checkout_minus"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toStartOf="@id/checkoutDiscountAmount"
-                app:layout_constraintTop_toTopOf="@id/checkoutDiscountLabel" />
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/checkout_order_details"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/checkoutDiscountAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/checkoutDiscountLabel"
-                tools:text="0 Р" />
+                <TextView
+                    android:id="@+id/checkoutProductsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/checkout_basket_items"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutOrderDetailsLabel" />
 
-            <TextView
-                android:id="@+id/checkoutTotalPriceLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
+                <TextView
+                    android:id="@+id/checkoutProductsCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="3dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkoutProductsLabel"
+                    app:layout_constraintStart_toEndOf="@+id/checkoutProductsLabel"
+                    app:layout_constraintTop_toTopOf="@+id/checkoutProductsLabel"
+                    tools:text="(1)" />
 
-                android:fontFamily="sans-serif-light"
-                android:text="@string/checkout_total_price"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/checkoutPersonalDataLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutDiscountLabel" />
+                <TextView
+                    android:id="@+id/checkoutRawPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkoutProductsLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkoutProductsLabel"
+                    tools:text="1500 Р" />
+
+                <TextView
+                    android:id="@+id/checkoutDiscountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/checkout_discount"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutProductsLabel" />
+
+                <TextView
+                    android:id="@+id/checkoutDiscountMinusSign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:text="@string/checkout_minus"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkoutDiscountAmount"
+                    app:layout_constraintEnd_toStartOf="@+id/checkoutDiscountAmount"
+                    app:layout_constraintTop_toTopOf="@+id/checkoutDiscountAmount" />
+
+                <TextView
+                    android:id="@+id/checkoutDiscountAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkoutDiscountLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkoutDiscountLabel"
+                    tools:text="0 Р" />
+
+                <TextView
+                    android:id="@+id/checkoutTotalPriceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/checkout_total_price"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutDiscountLabel" />
+
+                <TextView
+                    android:id="@+id/checkoutTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@android:color/black"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/checkoutTotalPriceLabel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/checkoutTotalPriceLabel"
+                    tools:text="1500 Р" />
+
+                <Button
+                    android:id="@+id/checkoutMakeOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/bg_button_rounded_black"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:text="@string/checkout_make_order"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkoutTotalPriceLabel" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/checkoutTotalPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:fontFamily="sans-serif-light"
-                android:textColor="@android:color/black"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/checkoutTotalPriceLabel"
-                tools:text="1500 Р" />
-
-            <Button
-                android:id="@+id/checkoutPay"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/button_rounded_black_background"
-                android:foreground="?android:attr/selectableItemBackground"
-                android:text="@string/checkout_pay"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/checkoutTotalPrice"
-                app:layout_constraintStart_toStartOf="@+id/checkoutTotalPriceLabel"
-                app:layout_constraintTop_toBottomOf="@+id/checkoutTotalPriceLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
+import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
 import com.example.yury_bondarenko_shop.getStrikethroughSpannable
@@ -41,10 +42,15 @@ class BasketAdapter(
         holder.bind(items[position])
     }
 
+    //TODO refactor
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: BasketItem) {
             val product = item.product
             itemView.apply {
+                Glide.with(basketItemPicIv.context)
+                    .load(product.imageUrl)
+                    .error(R.drawable.ic_catalog_item_stub)
+                    .into(basketItemPicIv)
                 basketItemName.text = product.productName
                 basketItemCountTv.text = item.count.toString()
                 if (product.salePercent != 0) {
@@ -68,13 +74,19 @@ class BasketAdapter(
                     }
                 }
                 basketItemCountMinusIv.setOnClickListener {
-                    callbackDelegate.onCountMinusClick(adapterPosition)
+                    if (adapterPosition != NO_POSITION) {
+                        callbackDelegate.onCountMinusClick(adapterPosition)
+                    }
                 }
                 basketItemCountPlusIv.setOnClickListener {
-                    callbackDelegate.onCountPlusClick(adapterPosition)
+                    if (adapterPosition != NO_POSITION) {
+                        callbackDelegate.onCountPlusClick(adapterPosition)
+                    }
                 }
                 itemRootCl.setOnClickListener {
-                    callbackDelegate.onItemClick(adapterPosition)
+                    if (adapterPosition != NO_POSITION) {
+                        callbackDelegate.onItemClick(adapterPosition)
+                    }
                 }
             }
         }

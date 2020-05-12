@@ -8,7 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/productHeaderCl"
+        android:id="@+id/detailedHeaderCl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
 
 
         <ImageView
-            android:id="@+id/productBackIv"
+            android:id="@+id/detailedBackIv"
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:layout_marginStart="16dp"
@@ -30,7 +30,7 @@
 
 
         <View
-            android:id="@+id/productHeaderDivider"
+            android:id="@+id/detailedHeaderDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="?android:attr/listDivider"
@@ -39,38 +39,69 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/productOpenCartIv"
+            android:id="@+id/detailedOpenBasketIv"
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:layout_marginEnd="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="@+id/productBackIv"
+            app:layout_constraintBottom_toBottomOf="@+id/detailedBackIv"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/productBackIv"
+            app:layout_constraintTop_toTopOf="@+id/detailedBackIv"
             app:srcCompat="@drawable/ic_shopping_cart" />
+
+        <TextView
+            android:id="@+id/detailedBasketItemsCountTv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/basket_count_top_margin"
+            android:background="@drawable/bg_round_items_count"
+            android:fontFamily="sans-serif-black"
+            android:maxLength="2"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/detailedOpenBasketIv"
+            app:layout_constraintStart_toEndOf="@+id/detailedOpenBasketIv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9+"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/detailedFooterCl"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productHeaderCl">
+        app:layout_constraintTop_toBottomOf="@+id/detailedHeaderCl">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/detailedPicIv"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/detailedPicCv"
                 android:layout_width="0dp"
                 android:layout_height="320dp"
                 android:layout_margin="16dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_catalog_item_stub" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/detailedPicIv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_catalog_item_stub" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/detailedMainPriceTv"
@@ -80,15 +111,16 @@
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/detailedPicIv"
-                app:layout_constraintTop_toBottomOf="@+id/detailedPicIv"
+                app:layout_constraintStart_toStartOf="@+id/detailedPicCv"
+                app:layout_constraintTop_toBottomOf="@+id/detailedPicCv"
                 tools:text="16 000 P" />
 
             <TextView
                 android:id="@+id/detailedRawPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="2dp"
                 android:textSize="18sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/detailedMainPriceTv"
@@ -113,48 +145,44 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailedPicIv"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/detailedPicCv"
                 app:layout_constraintStart_toStartOf="@+id/detailedNameTv"
                 app:layout_constraintTop_toBottomOf="@+id/detailedNameTv"
                 tools:text="Описание товара" />
+
+            <TextView
+                android:id="@+id/detailedAttributesTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="120dp"
+                android:lineSpacingExtra="8sp"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/detailedDescriptionTv"
+                app:layout_constraintStart_toStartOf="@+id/detailedDescriptionTv"
+                app:layout_constraintTop_toBottomOf="@+id/detailedDescriptionTv"
+                tools:text="Атрибуты" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detailedFooterCl"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
+    <Button
+        android:id="@+id/detailedAddToBasketBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_button_rounded_black"
+        android:elevation="5dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/add_to_basket"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <View
-            android:id="@+id/detailedFooterDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/detailedAddToBasketBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/button_rounded_black_background"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/detailed_add_to_basket"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,48 +1,81 @@
 package com.example.yury_bondarenko_shop.presenter
 
-import android.util.Log
+import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.domain.BasketItemsDao
 import com.example.yury_bondarenko_shop.domain.MainApi
-import com.example.yury_bondarenko_shop.domain.interactor.AddProductToCartUseCase
+import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.domain.model.ProductFactory
-import kotlinx.coroutines.launch
+import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
 import moxy.InjectViewState
 import java.net.ConnectException
 import java.net.UnknownHostException
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 @InjectViewState
-class CatalogPresenter @Inject constructor(
+class CatalogPresenter(
+    private val basketItemsDao: BasketItemsDao,
+    private val commonPriceFormatter: CommonPriceFormatter,
     private val mainApi: MainApi,
-    private val addProductToCartUseCase: AddProductToCartUseCase
+    private val category: RemoteCategory
 ) : BasePresenter<CatalogView>() {
 
-    private val currencySign = "₽"
+    private lateinit var allProducts: List<Product>
+
+    private var searchResults: List<Product> = listOf()
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        launch {
-            val remoteProducts = mainApi.allProducts(author = "default")
-            val productFactory = ProductFactory()
-            val products = remoteProducts.map { r -> productFactory.createProduct(r) }
-            viewState.setProductList(products)
+        val factory = ProductFactory()
+        allProducts = category.products.map { factory.createProduct(it) }
+        viewState.setProductList(allProducts)
+        viewState.setCategoryTitle(category.name)
+    }
+
+    override fun attachView(view: CatalogView?) {
+        super.attachView(view)
+        updateBasketItemsCount() //TODO move to onViewResume
+    }
+
+    fun onQueryChanged(query: String?) {
+        if (query.isNullOrEmpty()) {
+            viewState.setProductList(allProducts)
+        } else {
+            searchResults =
+                allProducts.mapNotNull { if (it.productName.contains(query, true)) it else null }
+            viewState.setProductList(searchResults)
         }
     }
 
+
+    private fun updateBasketItemsCount() {
+        val itemsCount = basketItemsDao.getItemsCount()
+        if (itemsCount > 0) {
+            val formattedCount = if (itemsCount < 10) itemsCount.toString() else "9+"
+            viewState.setBasketCountLabelVisibility(true)
+            viewState.setBasketCountText(formattedCount)
+        } else {
+            viewState.setBasketCountLabelVisibility(false)
+        }
+    }
+
+    fun onQueryChanged() {
+
+    }
+
     fun formatPrice(price: Double): String {
-        val dec = DecimalFormat("#,###")
-        return "${dec.format(price)} $currencySign"
+        return commonPriceFormatter.formatPrice(price)
     }
 
     override fun onFailure(e: Throwable) {
         super.onFailure(e)
-        when (e::class.java) {
-            ConnectException::class.java -> {
-                viewState.showMessage("Нет соединения с интернетом")
+        when (e) {
+            is ConnectException -> {
+                viewState.showMessage(R.string.err_no_internet_connection)
             }
-            UnknownHostException::class.java -> {
-                viewState.showMessage("Ошибка соединения с сервером")
+            is UnknownHostException -> {
+                viewState.showMessage(R.string.err_connection_error)
             }
         }
     }
@@ -51,11 +84,23 @@ class CatalogPresenter @Inject constructor(
         viewState.startBasketActivity()
     }
 
-    fun addProductToCart() {
-        addProductToCartUseCase.invoke()
+    fun addProductToBasket(product: Product) {
+        basketItemsDao.addProduct(product)
+        updateBasketItemsCount()
     }
 
     fun onItemClicked(product: Product) {
         viewState.startDetailedActivity(product)
+    }
+}
+
+
+class CatalogPresenterFactory @Inject constructor(
+    private val basketItemsDao: BasketItemsDao,
+    private val commonPriceFormatter: CommonPriceFormatter,
+    private val mainApi: MainApi
+) {
+    fun create(category: RemoteCategory): CatalogPresenter {
+        return CatalogPresenter(basketItemsDao, commonPriceFormatter, mainApi, category)
     }
 }

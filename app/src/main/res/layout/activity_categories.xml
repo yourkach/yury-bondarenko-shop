@@ -36,7 +36,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/categoriesOpenCartIv"
+            android:id="@+id/categoriesOpenBasketIv"
             android:layout_width="@dimen/button_size"
             android:layout_height="@dimen/button_size"
             android:layout_marginEnd="16dp"
@@ -46,6 +46,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/categoriesHeaderLabel"
             app:srcCompat="@drawable/ic_shopping_cart" />
+
+        <TextView
+            android:id="@+id/categoriesBasketItemsCountTv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="@dimen/basket_count_top_margin"
+            android:background="@drawable/bg_round_items_count"
+            android:fontFamily="sans-serif-black"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/categoriesOpenBasketIv"
+            app:layout_constraintStart_toEndOf="@+id/categoriesOpenBasketIv"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="9+"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView

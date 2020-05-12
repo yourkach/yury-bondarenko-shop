@@ -1,7 +1,7 @@
 package com.example.yury_bondarenko_shop.domain.model
 
 import android.os.Parcelable
-import com.example.yury_bondarenko_shop.domain.RemoteProduct
+import com.example.yury_bondarenko_shop.domain.model.remote.RemoteProduct
 import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.Serializable
 
@@ -9,13 +9,12 @@ import kotlinx.serialization.Serializable
 @Parcelize
 data class Product(
     val id: String,
-    /**
-     * Must be positive
-     */
     val price: Double,
     val salePercent: Int = 0,
     val productName: String,
-    val imageUrl: String = "" //TODO
+    val imageUrl: String,
+    val description: String,
+    val attributes: List<String>
 ) : Parcelable {
     /**
      * price with applied discount determined by [salePercent]
@@ -29,5 +28,13 @@ data class Product(
 
 class ProductFactory {
     fun createProduct(remote: RemoteProduct): Product =
-        Product(remote.id, remote.price, remote.discountPercent, remote.name, remote.imageUrl)
+        Product(
+            remote.id,
+            remote.price,
+            remote.discountPercent,
+            remote.name,
+            remote.imageUrl,
+            remote.description,
+            remote.attributes.map { it.name + ": " + it.value }
+        )
 }

@@ -3,7 +3,7 @@
     <string name="checkout_header">Оформление заказа</string>
     <string name="checkout_sum">итого</string>
     <string name="checkout_hint_phone">Телефон</string>
-    <string name="checkout_pay">Оплатить</string>
+    <string name="checkout_make_order">Оформить заказ</string>
     <string name="checkout_total_price">Итого к оплате</string>
     <string name="checkout_minus">-</string>
     <string name="checkout_discount">Скидка</string>
@@ -24,5 +24,10 @@
     <string name="item_delete_label">Удалить</string>
     <string name="item_piece_label">шт.</string>
     <string name="catalog_header">Каталог</string>
-    <string name="detailed_add_to_basket">В корзину</string>
+    <string name="add_to_basket">В корзину</string>
+    <string name="msg_order_processed">Заказ оформлен!</string>
+    <string name="err_no_internet_connection">Нет соединения с интернетом</string>
+    <string name="err_connection_error">Ошибка соединения с сервером</string>
+    <string name="err_incorrect_fields_value">Поля заполнены некорректно</string>
+    <string name="catalog_search_hint">Введите название</string>
 </resources>

@@ -4,6 +4,7 @@ import com.example.yury_bondarenko_shop.domain.model.BasketItem
 import com.example.yury_bondarenko_shop.domain.model.Product
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndSingleStrategy::class)
@@ -18,6 +19,9 @@ interface BasketView : MvpView {
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setTotalPriceText(text: String)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
+    @StateStrategyType(SkipStrategy::class)
     fun startCheckoutActivity()
+
+    @StateStrategyType(SkipStrategy::class)
+    fun startDetailedActivity(product: Product)
 }

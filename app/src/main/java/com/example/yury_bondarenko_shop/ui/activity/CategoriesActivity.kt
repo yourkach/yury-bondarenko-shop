@@ -2,11 +2,15 @@ package com.example.yury_bondarenko_shop.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.GridLayoutManager
+import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yury_bondarenko_shop.App
 import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
 import com.example.yury_bondarenko_shop.presenter.CategoriesPresenter
 import com.example.yury_bondarenko_shop.presenter.CategoriesView
+import com.example.yury_bondarenko_shop.ui.activity.CatalogActivity.Companion.CATEGORY_TAG
 import com.example.yury_bondarenko_shop.ui.adapter.CategoriesAdapter
 import kotlinx.android.synthetic.main.activity_categories.*
 import moxy.MvpAppCompatActivity
@@ -32,12 +36,18 @@ class CategoriesActivity : MvpAppCompatActivity(), CategoriesView {
     }
 
     private fun setUpCategoriesRecycler() {
-        categoriesRv.layoutManager = GridLayoutManager(this, 2)
+        categoriesRv.layoutManager = LinearLayoutManager(this)
         categoriesRv.adapter = categoriesAdapter
+        categoriesRv.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                DividerItemDecoration.VERTICAL
+            )
+        )
     }
 
     private fun setListeners() {
-        categoriesOpenCartIv.setOnClickListener {
+        categoriesOpenBasketIv.setOnClickListener {
             presenter.onBasketClick()
         }
     }
@@ -46,9 +56,9 @@ class CategoriesActivity : MvpAppCompatActivity(), CategoriesView {
         categoriesAdapter.setList(categories)
     }
 
-    override fun startCatalogActivity(category: String) {
+    override fun startCatalogActivity(category: RemoteCategory) {
         val intent = Intent(this, CatalogActivity::class.java)
-        intent.putExtra("title", category)
+        intent.putExtra(CATEGORY_TAG, category)
         startActivity(intent)
     }
 
@@ -56,4 +66,11 @@ class CategoriesActivity : MvpAppCompatActivity(), CategoriesView {
         startActivity(Intent(this, BasketActivity::class.java))
     }
 
+    override fun setBasketCountLabelVisibility(visible: Boolean) {
+        categoriesBasketItemsCountTv.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    override fun setBasketCountText(text: String) {
+        categoriesBasketItemsCountTv.text = text
+    }
 }

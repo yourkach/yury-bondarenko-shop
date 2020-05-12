@@ -2,34 +2,43 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/itemCatalogRootCl"
+    android:id="@+id/catalogItemRootCl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="5dp"
-    android:layout_marginTop="2dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginBottom="2dp"
-    android:background="@drawable/rounded_white_background"
-    android:padding="12dp">
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="3dp"
+    android:layout_marginBottom="3dp"
+    android:background="@drawable/bg_rounded_white"
+    android:elevation="3dp"
+    android:padding="8dp">
 
-    <ImageView
-        android:id="@+id/catalogItemPicIv"
-        android:layout_width="@dimen/basket_item_pic"
-        android:layout_height="@dimen/basket_item_pic"
-        android:scaleType="centerCrop"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/catalogItemPicCv"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_catalog_item_stub" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/catalogItemPicIv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_catalog_item_stub" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/catalogItemDetailsCl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:minHeight="@dimen/basket_item_pic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/catalogItemPicIv"
-        app:layout_constraintTop_toTopOf="@+id/catalogItemPicIv">
+        app:layout_constraintStart_toStartOf="@+id/catalogItemPicCv"
+        app:layout_constraintTop_toBottomOf="@+id/catalogItemPicCv">
 
         <TextView
             android:id="@+id/catalogItemMainPrice"
@@ -72,7 +81,30 @@
             app:layout_constraintTop_toBottomOf="@+id/catalogItemMainPrice"
             tools:text="Процессор Intel Core i5-9400F" />
 
+        <TextView
+            android:id="@+id/catalogItemDescr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/catalogItemName"
+            tools:text="Краткое описание товара" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/catalogItemAddToBasketIv"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_button_oval_white"
+        android:elevation="6dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="@+id/catalogItemPicCv"
+        app:layout_constraintEnd_toEndOf="@+id/catalogItemPicCv"
+        app:srcCompat="@drawable/ic_add_to_basket_black" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,21 +3,29 @@ package com.example.yury_bondarenko_shop.ui.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import com.example.yury_bondarenko_shop.App
 import com.example.yury_bondarenko_shop.presenter.CheckoutPresenter
 import com.example.yury_bondarenko_shop.presenter.CheckoutView
 import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
 import kotlinx.android.synthetic.main.activity_checkout.*
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
-class CheckoutActivity : AppCompatActivity(),
+class CheckoutActivity : MvpAppCompatActivity(),
     CheckoutView {
 
-    private val presenter =
-        CheckoutPresenter()
+
+    @Inject
+    lateinit var checkoutPresenter: CheckoutPresenter
+
+    private val presenter by moxyPresenter { checkoutPresenter }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
         presenter.attachView(this)
@@ -25,37 +33,42 @@ class CheckoutActivity : AppCompatActivity(),
     }
 
     private fun setListeners() {
+        checkoutPaymentMethodGroup.setOnCheckedChangeListener { _, paymentTypeId ->
+            val paymentType = when (paymentTypeId) {
+                R.id.checkoutRadioCard -> RemoteOrder.PaymentType.CardOnReceiving
+                else -> RemoteOrder.PaymentType.CashOnReceiving
+            }
+            presenter.onPaymentMethodChecked(paymentType)
+        }
         checkoutBackIv.setOnClickListener {
             finish()
         }
+        checkoutMakeOrder.setOnClickListener {
+            presenter.onMakeOrderClick()
+        }
         checkoutFirstName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                presenter.checkFirstName(s.toString())
+                presenter.onFirstNameChanged(s.toString())
             }
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
 
-        checkoutMiddleName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                presenter.checkMiddleName(s.toString())
-            }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         checkoutLastName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                presenter.checkLastName(s.toString())
+                presenter.onLastNameChanged(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         checkoutPhoneNumber.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                presenter.checkPhoneNumber(s.toString())
+                presenter.onPhoneNumberChanged(s.toString())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
@@ -64,7 +77,6 @@ class CheckoutActivity : AppCompatActivity(),
 
     private fun EditText.showErrorIcon(visible: Boolean) {
         val drawable = if (visible) R.drawable.ic_error else 0
-
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
     }
 
@@ -76,9 +88,6 @@ class CheckoutActivity : AppCompatActivity(),
         checkoutFirstName.showErrorIcon(visible)
     }
 
-    override fun showErrorMiddleName(visible: Boolean) {
-        checkoutMiddleName.showErrorIcon(visible)
-    }
 
     override fun showErrorPhone(visible: Boolean) {
         checkoutPhoneNumber.showErrorIcon(visible)
@@ -86,6 +95,10 @@ class CheckoutActivity : AppCompatActivity(),
 
     override fun setRawPrice(formattedPrice: String) {
         checkoutRawPrice.text = formattedPrice
+    }
+
+    override fun showMessage(stringResId: Int) {
+        Toast.makeText(this, getString(stringResId), Toast.LENGTH_SHORT).show()
     }
 
     override fun setDiscount(formattedDiscount: String) {
