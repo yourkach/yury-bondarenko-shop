@@ -38,7 +38,7 @@ class CheckoutActivity : MvpAppCompatActivity(),
                 R.id.checkoutRadioCard -> RemoteOrder.PaymentType.CardOnReceiving
                 else -> RemoteOrder.PaymentType.CashOnReceiving
             }
-            presenter.onPaymentMethodChecked(paymentType)
+            presenter.onPaymentMethodChanged(paymentType)
         }
         checkoutBackIv.setOnClickListener {
             finish()
@@ -110,7 +110,7 @@ class CheckoutActivity : MvpAppCompatActivity(),
     }
 
     override fun setBasketItemsCount(count: Int) {
-        checkoutProductsCount.text = "($count)"
+        checkoutProductsCount.text = getString(R.string.checkout_items_count, count)
     }
 }
 

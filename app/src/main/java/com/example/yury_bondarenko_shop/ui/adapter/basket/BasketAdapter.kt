@@ -26,7 +26,7 @@ class BasketAdapter(
                 basketItems
             )
         )
-        items = basketItems
+        items = basketItems.toList()
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -75,12 +75,14 @@ class BasketAdapter(
                 }
                 basketItemCountMinusIv.setOnClickListener {
                     if (adapterPosition != NO_POSITION) {
-                        callbackDelegate.onCountMinusClick(adapterPosition)
+                        val newCount = callbackDelegate.onCountMinusClick(adapterPosition)
+                        basketItemCountTv.text = newCount.toString()
                     }
                 }
                 basketItemCountPlusIv.setOnClickListener {
                     if (adapterPosition != NO_POSITION) {
-                        callbackDelegate.onCountPlusClick(adapterPosition)
+                        val newCount = callbackDelegate.onCountPlusClick(adapterPosition)
+                        basketItemCountTv.text = newCount.toString()
                     }
                 }
                 itemRootCl.setOnClickListener {

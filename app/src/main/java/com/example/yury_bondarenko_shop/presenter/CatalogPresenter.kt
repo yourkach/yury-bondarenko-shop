@@ -7,6 +7,7 @@ import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.domain.model.ProductFactory
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
+import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import java.net.ConnectException
 import java.net.UnknownHostException
@@ -37,6 +38,15 @@ class CatalogPresenter(
         super.attachView(view)
         updateBasketItemsCount() //TODO move to onViewResume
     }
+
+
+    //leave for stepik homework
+    private fun doNetworkRequest() {
+        launch {
+            val products = mainApi.allProducts(author = "default")
+        }
+    }
+
 
     fun onQueryChanged(query: String?) {
         if (query.isNullOrEmpty()) {

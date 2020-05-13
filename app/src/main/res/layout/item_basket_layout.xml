@@ -124,7 +124,7 @@
             android:id="@+id/basketItemPicIv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_catalog_item_stub" />
     </androidx.cardview.widget.CardView>
 

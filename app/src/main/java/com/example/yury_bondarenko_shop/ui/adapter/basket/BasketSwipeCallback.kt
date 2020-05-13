@@ -16,13 +16,13 @@ class BasketSwipeCallback(
     ItemTouchHelper.LEFT
 ) {
 
-
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
+        return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {

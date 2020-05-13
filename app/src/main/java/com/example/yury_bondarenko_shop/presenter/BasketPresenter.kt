@@ -40,20 +40,20 @@ class BasketPresenter @Inject constructor(
         updateBasketTotalPrice()
     }
 
-    fun onItemCountPlusClick(pos: Int) {
+    fun onItemCountPlusClick(pos: Int): Int {
         basketItems[pos].count += 1
-        updateBasketItemsView()
         updateBasketTotalPrice()
+        return basketItems[pos].count
     }
 
-    fun onItemCountMinusClick(pos: Int) {
+    fun onItemCountMinusClick(pos: Int): Int {
         basketItems[pos].apply {
             if (count > 1) {
                 count -= 1
-                updateBasketItemsView()
+                updateBasketTotalPrice()
             }
         }
-        updateBasketTotalPrice()
+        return basketItems[pos].count
     }
 
     private fun updateBasketItemsView() {

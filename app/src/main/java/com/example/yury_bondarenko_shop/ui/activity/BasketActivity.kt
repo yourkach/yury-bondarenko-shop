@@ -36,12 +36,11 @@ class BasketActivity : MvpAppCompatActivity(),
                 override fun onDeleteClick(pos: Int) {
                     presenter.onBasketItemDeleteClick(pos)
                 }
-                override fun onCountPlusClick(pos: Int) {
-                    presenter.onItemCountPlusClick(pos)
-                }
-                override fun onCountMinusClick(pos: Int) {
-                    presenter.onItemCountMinusClick(pos)
-                }
+
+                override fun onCountPlusClick(pos: Int): Int = presenter.onItemCountPlusClick(pos)
+
+                override fun onCountMinusClick(pos: Int): Int = presenter.onItemCountMinusClick(pos)
+
                 override fun onItemClick(pos: Int) {
                     presenter.onItemClick(pos)
                 }

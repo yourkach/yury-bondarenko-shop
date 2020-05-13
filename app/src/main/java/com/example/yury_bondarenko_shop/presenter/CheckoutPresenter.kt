@@ -50,26 +50,32 @@ class CheckoutPresenter @Inject constructor(
         viewState.showErrorPhone(!numberIsCorrect(text))
     }
 
-    fun onPaymentMethodChecked(newPaymentType: RemoteOrder.PaymentType) {
+    fun onPaymentMethodChanged(newPaymentType: RemoteOrder.PaymentType) {
         model.paymentType = newPaymentType
     }
 
     fun onMakeOrderClick() {
-        if (orderModelIsCorrect()) {
-            val remoteOrder =
-                RemoteOrder(
-                    model.firstName,
-                    model.lastName,
-                    model.phoneNumber,
-                    model.paymentType,
-                    basketItems.map { RemoteOrder.Item(it.product.id, it.count) }
-                )
-            launch {
-                //TODO("send order")
-                viewState.showMessage(R.string.msg_order_processed)
+        when {
+            basketItems.isEmpty() -> {
+                viewState.showMessage(R.string.err_empty_order)
             }
-        } else {
-            viewState.showMessage(R.string.err_incorrect_fields_value)
+            orderModelIsCorrect() -> {
+                val remoteOrder =
+                    RemoteOrder(
+                        model.firstName,
+                        model.lastName,
+                        model.phoneNumber,
+                        model.paymentType,
+                        basketItems.map { RemoteOrder.Item(it.product.id, it.count) }
+                    )
+                launch {
+                    mainApi.createOrder(remoteOrder)
+                    viewState.showMessage(R.string.msg_order_processed)
+                }
+            }
+            else -> {
+                viewState.showMessage(R.string.err_incorrect_fields_value)
+            }
         }
     }
 

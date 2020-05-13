@@ -17,6 +17,7 @@
     <string name="checkout_hint_last_name">Фамилия</string>
     <string name="checkout_personal_data">Личные данные</string>
     <string name="checkout_phone_format_hint">Пример, 89999999999 или +79999999999</string>
+    <string name="checkout_items_count">(%1$d)</string>
     <string name="product_info_header">Информация о товаре</string>
     <string name="basket_header">Корзина</string>
     <string name="basket_checkout">оформить заказ</string>
@@ -30,4 +31,5 @@
     <string name="err_connection_error">Ошибка соединения с сервером</string>
     <string name="err_incorrect_fields_value">Поля заполнены некорректно</string>
     <string name="catalog_search_hint">Введите название</string>
+    <string name="err_empty_order">В заказе нет товаров</string>
 </resources>

@@ -6,7 +6,7 @@ class CheckoutPriceFormatterImpl : CheckoutPriceFormatter {
     private val currencySign: String = "₽"
 
     override fun formatPrice(price: Double): String {
-        val dec = DecimalFormat("#,###.00")
-        return "${dec.format(price)} $currencySign"
+        val formattedPrice = if (price > 0.0) DecimalFormat("#,###.00").format(price) else "0"
+        return "$formattedPrice $currencySign"
     }
 }

@@ -11,7 +11,7 @@
     android:layout_marginBottom="3dp"
     android:background="@drawable/bg_rounded_white"
     android:elevation="3dp"
-    android:padding="8dp">
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/catalogItemPicCv"
@@ -27,7 +27,8 @@
             android:id="@+id/catalogItemPicIv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
+            android:adjustViewBounds="false"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_catalog_item_stub" />
     </androidx.cardview.widget.CardView>
 
@@ -35,6 +36,7 @@
         android:id="@+id/catalogItemDetailsCl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:minHeight="@dimen/basket_item_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/catalogItemPicCv"
@@ -44,7 +46,6 @@
             android:id="@+id/catalogItemMainPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -73,9 +74,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
             android:singleLine="false"
             android:textColor="@android:color/black"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/catalogItemDescr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/catalogItemMainPrice"
@@ -85,10 +88,9 @@
             android:id="@+id/catalogItemDescr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/catalogItemName"
             tools:text="Краткое описание товара" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,4 +23,8 @@ interface CategoriesView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setBasketCountText(text: String)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun showMessage(stringResId: Int)
+
 }

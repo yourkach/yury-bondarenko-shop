@@ -26,6 +26,7 @@ interface AppComponent {
         fun build(): AppComponent
     }
 
+    fun inject(activity: SplashScreenActivity)
     fun inject(activity: CategoriesActivity)
     fun inject(activity: DetailedActivity)
     fun inject(activity: CatalogActivity)
