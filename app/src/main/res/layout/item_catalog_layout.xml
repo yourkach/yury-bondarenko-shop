@@ -97,8 +97,8 @@
 
     <ImageView
         android:id="@+id/catalogItemAddToBasketIv"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
+        android:layout_width="@dimen/add_to_basket_btn_size"
+        android:layout_height="@dimen/add_to_basket_btn_size"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="6dp"
         android:background="@drawable/bg_button_oval_white"

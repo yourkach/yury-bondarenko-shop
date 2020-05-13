@@ -6,10 +6,22 @@
     android:layout_height="match_parent">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriesRv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:elevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoriesHeaderCl" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/categoriesHeaderCl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height"
+        android:background="@color/mainBackgroundColor"
+        android:elevation="@dimen/elevation_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -18,7 +30,7 @@
             android:id="@+id/categoriesHeaderLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Категории товаров"
+            android:text="@string/categories_header_label"
             android:textColor="@android:color/black"
             android:textSize="@dimen/header_label_font_size"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -26,20 +38,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/categoriesHeaderDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageView
             android:id="@+id/categoriesOpenBasketIv"
-            android:layout_width="@dimen/button_size"
-            android:layout_height="@dimen/button_size"
-            android:layout_marginEnd="16dp"
+            android:layout_width="@dimen/touchable_size"
+            android:layout_height="@dimen/touchable_size"
+            android:layout_marginEnd="8dp"
             android:background="@drawable/bg_button_oval_transparent"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="@+id/categoriesHeaderLabel"
@@ -51,27 +54,19 @@
             android:id="@+id/categoriesBasketItemsCountTv"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="@dimen/basket_count_top_margin"
             android:background="@drawable/bg_round_items_count"
             android:fontFamily="sans-serif-black"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="@+id/categoriesOpenBasketIv"
-            app:layout_constraintStart_toEndOf="@+id/categoriesOpenBasketIv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/categoriesOpenBasketIv"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="9+"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoriesRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoriesHeaderCl" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
