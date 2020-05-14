@@ -11,8 +11,8 @@ interface BasketItemsDao {
     fun clearBasket()
 
     /**
-     * add [product] to basket
-     * if [product] item exists in basket then increment its count
+     * add new BasketItem with [product] to basket
+     * if BasketItem with such [product] already exists then increment its count
      */
     fun addProduct(product: Product)
 
@@ -28,7 +28,7 @@ interface BasketItemsDao {
     fun getAllItems(): List<BasketItem>
 
     /**
-     * returns basket items count
+     * returns count of unique products in basket, not sum of all counts
      */
     fun getItemsCount(): Int
 }

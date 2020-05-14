@@ -11,8 +11,7 @@ import javax.inject.Inject
 class BasketPresenter @Inject constructor(
     private val basketItemsDao: BasketItemsDao,
     private val commonPriceFormatter: CommonPriceFormatter
-) :
-    MvpPresenter<BasketView>() {
+) : MvpPresenter<BasketView>() {
 
     private var basketItems: MutableList<BasketItem> = basketItemsDao.getAllItems().toMutableList()
 
@@ -27,11 +26,9 @@ class BasketPresenter @Inject constructor(
     }
 
     fun onViewResume() {
-        if (basketItems.size != basketItemsDao.getItemsCount()) {
-            basketItems = basketItemsDao.getAllItems().toMutableList()
-            updateBasketItemsView()
-            updateBasketTotalPrice()
-        }
+        basketItems = basketItemsDao.getAllItems().toMutableList()
+        updateBasketItemsView()
+        updateBasketTotalPrice()
     }
 
     fun onBasketItemDeleteClick(pos: Int) {
@@ -80,7 +77,5 @@ class BasketPresenter @Inject constructor(
     }
 
     fun formatPrice(price: Double): String = commonPriceFormatter.formatPrice(price)
-
-
 }
 

@@ -3,7 +3,7 @@ package com.example.yury_bondarenko_shop.domain.model
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
 
 /**
- * Модель для создания заказа
+ * model for creating order
  */
 data class OrderModel(
     var firstName: String = "",

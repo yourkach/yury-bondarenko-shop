@@ -10,6 +10,8 @@ import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
+import java.net.ConnectException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @InjectViewState
@@ -88,7 +90,7 @@ class CheckoutPresenter @Inject constructor(
                 && numberIsCorrect(model.phoneNumber)
     }
 
-    private fun lengthIsCorrect(text: String): Boolean = text.length > 2
+    private fun lengthIsCorrect(text: String): Boolean = text.length > 1
 
     private fun numberIsCorrect(text: String): Boolean {
         return text.matches(Regex("((\\+7|8)([0-9]){10})"))
@@ -101,5 +103,17 @@ class CheckoutPresenter @Inject constructor(
         basketItems.sumByDouble { it.product.price * it.count }
 
     private fun calcTotalDiscount(): Double = calcPurchaseRawPricesSum() - calcPurchaseDiscountSum()
+
+    override fun onFailure(e: Throwable) {
+        super.onFailure(e)
+        when (e) {
+            is ConnectException -> {
+                viewState.showMessage(R.string.err_connection_error)
+            }
+            is UnknownHostException -> {
+                viewState.showMessage(R.string.err_connection_error)
+            }
+        }
+    }
 }
 

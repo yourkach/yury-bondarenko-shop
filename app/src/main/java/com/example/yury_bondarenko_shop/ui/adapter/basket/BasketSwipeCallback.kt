@@ -20,10 +20,7 @@ class BasketSwipeCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
-    ): Boolean {
-        //TODO("Not yet implemented")
-        return true
-    }
+    ): Boolean = false
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         onItemSwiped(viewHolder.adapterPosition)

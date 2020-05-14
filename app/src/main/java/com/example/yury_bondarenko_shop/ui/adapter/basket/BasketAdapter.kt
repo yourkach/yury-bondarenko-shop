@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
-import com.example.yury_bondarenko_shop.getStrikethroughSpannable
+import com.example.yury_bondarenko_shop.strikethroughSpannable
 import kotlinx.android.synthetic.main.item_basket_layout.view.*
 
 class BasketAdapter(
@@ -42,28 +42,35 @@ class BasketAdapter(
         holder.bind(items[position])
     }
 
-    //TODO refactor
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: BasketItem) {
-            val product = item.product
+
+        fun bind(basketItem: BasketItem) {
+            loadProductImage(basketItem.product.imageUrl)
+            setProductInfo(basketItem)
+            setListeners()
+        }
+
+        private fun setProductInfo(basketItem: BasketItem) {
+            val product = basketItem.product
             itemView.apply {
-                Glide.with(basketItemPicIv.context)
-                    .load(product.imageUrl)
-                    .error(R.drawable.ic_catalog_item_stub)
-                    .into(basketItemPicIv)
                 basketItemName.text = product.productName
-                basketItemCountTv.text = item.count.toString()
+                basketItemCountTv.text = basketItem.count.toString()
                 if (product.salePercent != 0) {
                     basketItemDiscountPrice.visibility = View.VISIBLE
                     basketItemDiscountPrice.text = formatPrice(product.discountPrice)
-                    val rawPrice = formatPrice(product.price)
-                    basketItemMainPrice.text = getStrikethroughSpannable(rawPrice)
+                    basketItemMainPrice.text = formatPrice(product.price).strikethroughSpannable
                 } else {
                     basketItemMainPrice.text = formatPrice(product.price)
                     basketItemDiscountPrice.visibility = View.GONE
                 }
             }
-            setListeners()
+        }
+
+        private fun loadProductImage(imageUrl: String) {
+            Glide.with(itemView.basketItemPicIv.context)
+                .load(imageUrl)
+                .error(R.drawable.ic_catalog_item_stub)
+                .into(itemView.basketItemPicIv)
         }
 
         private fun setListeners() {

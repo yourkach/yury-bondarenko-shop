@@ -15,12 +15,14 @@ class SplashPresenter @Inject constructor(
     private val mainApi: MainApi
 ) : BasePresenter<SplashView>() {
 
+    private val splashDelayMilliseconds: Long = 1500
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         launch {
             val categories =
                 async { mainApi.allProductsWithCategories() }
-            delay(2000)
+            delay(splashDelayMilliseconds)
             viewState.startCategoriesActivity(categories.await())
         }
     }

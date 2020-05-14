@@ -45,8 +45,6 @@ class BasketItemsDaoImpl(private val sharedPreferences: SharedPreferences) : Bas
 
     override fun getAllItems(): List<BasketItem> = basketItems
 
-
-    //TODO rework if enough time
     override fun getItemsCount(): Int = basketItems.size
 
     companion object {

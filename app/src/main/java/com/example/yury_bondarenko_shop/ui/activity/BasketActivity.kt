@@ -30,7 +30,7 @@ class BasketActivity : MvpAppCompatActivity(),
         basketPresenter
     }
 
-    private var basketAdapter: BasketAdapter =
+    private val basketAdapter: BasketAdapter =
         BasketAdapter(
             object : BasketItemClickCallback {
                 override fun onDeleteClick(pos: Int) {
@@ -45,9 +45,7 @@ class BasketActivity : MvpAppCompatActivity(),
                     presenter.onItemClick(pos)
                 }
             },
-            formatPrice = { price ->
-                presenter.formatPrice(price)
-            }
+            formatPrice = { price -> presenter.formatPrice(price) }
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +61,7 @@ class BasketActivity : MvpAppCompatActivity(),
             layoutManager = LinearLayoutManager(this@BasketActivity)
             adapter = basketAdapter
         }
-        val helper = ItemTouchHelper(
+        ItemTouchHelper(
             BasketSwipeCallback(
                 onItemSwiped = { pos ->
                     presenter.onBasketItemDeleteClick(pos)
@@ -72,8 +70,7 @@ class BasketActivity : MvpAppCompatActivity(),
                 icon = getDrawable(R.drawable.ic_delete)!!,
                 background = getDrawable(R.drawable.bg_delete_rounded_red)!!
             )
-        )
-        helper.attachToRecyclerView(basketItemsRv)
+        ).also { it.attachToRecyclerView(basketItemsRv) }
     }
 
 
@@ -95,7 +92,6 @@ class BasketActivity : MvpAppCompatActivity(),
         super.onResume()
         presenter.onViewResume()
     }
-
 
     override fun startCheckoutActivity() {
         startActivity(Intent(this, CheckoutActivity::class.java))

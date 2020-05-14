@@ -11,9 +11,13 @@ import dagger.Provides
 @Module
 class PriceFormatterModule {
 
-    @Provides
-    fun provideCommonPriceFormatter(): CommonPriceFormatter = CommonPriceFormatterImpl()
+    private val currencySign: String = "₽"
 
     @Provides
-    fun provideCheckoutPriceFormatter(): CheckoutPriceFormatter = CheckoutPriceFormatterImpl()
+    fun provideCommonPriceFormatter(): CommonPriceFormatter =
+        CommonPriceFormatterImpl(currencySign)
+
+    @Provides
+    fun provideCheckoutPriceFormatter(): CheckoutPriceFormatter =
+        CheckoutPriceFormatterImpl(currencySign)
 }

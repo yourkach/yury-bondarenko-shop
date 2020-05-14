@@ -15,7 +15,6 @@ import javax.inject.Inject
 @InjectViewState
 class CategoriesPresenter(
     private val basketItemsDao: BasketItemsDao,
-    private val mainApi: MainApi,
     private val categoriesList: List<RemoteCategory>
 ) : BasePresenter<CategoriesView>() {
 
@@ -61,10 +60,9 @@ class CategoriesPresenter(
 }
 
 class CategoriesPresenterFactory @Inject constructor(
-    private val basketItemsDao: BasketItemsDao,
-    private val mainApi: MainApi
+    private val basketItemsDao: BasketItemsDao
 ) {
     fun create(categoriesList: List<RemoteCategory>): CategoriesPresenter {
-        return CategoriesPresenter(basketItemsDao, mainApi, categoriesList)
+        return CategoriesPresenter(basketItemsDao, categoriesList)
     }
 }

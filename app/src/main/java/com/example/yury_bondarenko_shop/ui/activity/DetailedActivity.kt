@@ -9,9 +9,9 @@ import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.App
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.Product
-import com.example.yury_bondarenko_shop.getStrikethroughSpannable
 import com.example.yury_bondarenko_shop.presenter.DetailedPresenterFactory
 import com.example.yury_bondarenko_shop.presenter.DetailedView
+import com.example.yury_bondarenko_shop.strikethroughSpannable
 import kotlinx.android.synthetic.main.activity_detailed.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -51,6 +51,11 @@ class DetailedActivity : MvpAppCompatActivity(), DetailedView {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.onViewResume()
+    }
+
 
     override fun startBasketActivity() {
         startActivity(Intent(this, BasketActivity::class.java))
@@ -80,7 +85,7 @@ class DetailedActivity : MvpAppCompatActivity(), DetailedView {
         detailedMainPriceTv.text = discountPrice
         detailedRawPriceTv.apply {
             visibility = View.VISIBLE
-            text = getStrikethroughSpannable(rawPrice)
+            text = rawPrice.strikethroughSpannable
         }
     }
 

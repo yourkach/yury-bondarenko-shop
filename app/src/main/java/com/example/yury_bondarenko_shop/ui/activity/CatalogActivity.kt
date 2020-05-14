@@ -41,11 +41,6 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         App.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
-
-        /* TODO("display category name ")
-        val title = intent.extras?.getString("title")!!
-        catalogHeaderLabel.text = title
-        */
         setListeners()
         setUpProductsRecycler()
     }
@@ -72,10 +67,14 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     private fun setUpProductsRecycler() {
         catalogProductsRv.apply {
-            //layoutManager = LinearLayoutManager(this@CatalogActivity)
             layoutManager = GridLayoutManager(this@CatalogActivity, 2)
             adapter = catalogAdapter
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onViewResume()
     }
 
     override fun startDetailedActivity(product: Product) {

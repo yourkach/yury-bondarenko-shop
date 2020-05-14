@@ -19,7 +19,7 @@ class ProductDiffUtilCallback(
     ): Boolean {
         val oldProduct: Product = oldList[oldItemPosition]
         val newProduct: Product = newList[newItemPosition]
-        return oldProduct.productName === newProduct.productName
+        return oldProduct.id === newProduct.id
     }
 
     override fun areContentsTheSame(

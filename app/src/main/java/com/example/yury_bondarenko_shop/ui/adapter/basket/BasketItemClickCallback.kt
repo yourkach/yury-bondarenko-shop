@@ -1,7 +1,10 @@
 package com.example.yury_bondarenko_shop.ui.adapter.basket
 
 interface BasketItemClickCallback {
+
     fun onDeleteClick(pos: Int)
+
+    fun onItemClick(pos: Int)
 
     /**
      * returns new count
@@ -12,6 +15,4 @@ interface BasketItemClickCallback {
      * returns new count
      */
     fun onCountMinusClick(pos: Int): Int
-
-    fun onItemClick(pos: Int)
 }

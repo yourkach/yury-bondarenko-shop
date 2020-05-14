@@ -10,7 +10,6 @@ import javax.inject.Inject
 @InjectViewState
 class DetailedPresenter(
     private val basketItemsDao: BasketItemsDao,
-    private val mainApi: MainApi,
     private val commonPriceFormatter: CommonPriceFormatter,
     private val product: Product,
     private val launchedFromBasket: Boolean
@@ -45,8 +44,7 @@ class DetailedPresenter(
         }
     }
 
-    override fun attachView(view: DetailedView?) {
-        super.attachView(view)
+    fun onViewResume() {
         if (!launchedFromBasket) updateBasketItemsCount()
     }
 
@@ -74,13 +72,11 @@ class DetailedPresenter(
 
 class DetailedPresenterFactory @Inject constructor(
     private val basketItemsDao: BasketItemsDao,
-    private val mainApi: MainApi,
     private val commonPriceFormatter: CommonPriceFormatter
 ) {
     fun create(product: Product, launchedFromBasket: Boolean): DetailedPresenter {
         return DetailedPresenter(
             basketItemsDao,
-            mainApi,
             commonPriceFormatter,
             product,
             launchedFromBasket

@@ -43,14 +43,6 @@ class CategoriesActivity : MvpAppCompatActivity(), CategoriesView {
     private fun setUpCategoriesRecycler() {
         categoriesRv.layoutManager = LinearLayoutManager(this)
         categoriesRv.adapter = categoriesAdapter
-        /*
-        categoriesRv.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                DividerItemDecoration.VERTICAL
-            )
-        )
-        */
     }
 
     private fun setListeners() {

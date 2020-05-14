@@ -17,14 +17,10 @@ import javax.inject.Inject
 class CatalogPresenter(
     private val basketItemsDao: BasketItemsDao,
     private val commonPriceFormatter: CommonPriceFormatter,
-    private val mainApi: MainApi,
     private val category: RemoteCategory
 ) : BasePresenter<CatalogView>() {
 
     private lateinit var allProducts: List<Product>
-
-    private var searchResults: List<Product> = listOf()
-
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -34,25 +30,15 @@ class CatalogPresenter(
         viewState.setCategoryTitle(category.name)
     }
 
-    override fun attachView(view: CatalogView?) {
-        super.attachView(view)
-        updateBasketItemsCount() //TODO move to onViewResume
+    fun onViewResume() {
+        updateBasketItemsCount()
     }
-
-
-    //leave for stepik homework
-    private fun doNetworkRequest() {
-        launch {
-            val products = mainApi.allProducts(author = "default")
-        }
-    }
-
 
     fun onQueryChanged(query: String?) {
         if (query.isNullOrEmpty()) {
             viewState.setProductList(allProducts)
         } else {
-            searchResults =
+            val searchResults =
                 allProducts.mapNotNull { if (it.productName.contains(query, true)) it else null }
             viewState.setProductList(searchResults)
         }
@@ -70,25 +56,7 @@ class CatalogPresenter(
         }
     }
 
-    fun onQueryChanged() {
-
-    }
-
-    fun formatPrice(price: Double): String {
-        return commonPriceFormatter.formatPrice(price)
-    }
-
-    override fun onFailure(e: Throwable) {
-        super.onFailure(e)
-        when (e) {
-            is ConnectException -> {
-                viewState.showMessage(R.string.err_no_internet_connection)
-            }
-            is UnknownHostException -> {
-                viewState.showMessage(R.string.err_connection_error)
-            }
-        }
-    }
+    fun formatPrice(price: Double): String = commonPriceFormatter.formatPrice(price)
 
     fun onBasketClicked() {
         viewState.startBasketActivity()
@@ -107,10 +75,9 @@ class CatalogPresenter(
 
 class CatalogPresenterFactory @Inject constructor(
     private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter,
-    private val mainApi: MainApi
+    private val commonPriceFormatter: CommonPriceFormatter
 ) {
     fun create(category: RemoteCategory): CatalogPresenter {
-        return CatalogPresenter(basketItemsDao, commonPriceFormatter, mainApi, category)
+        return CatalogPresenter(basketItemsDao, commonPriceFormatter, category)
     }
 }

@@ -65,23 +65,19 @@ class CheckoutActivity : MvpAppCompatActivity(),
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        val maskedTextChangedListener =
-            MaskedTextChangedListener.installOn(
-                checkoutPhoneNumber,
-                "+7 ([000]) [000]-[00]-[00]",
-                object : MaskedTextChangedListener.ValueListener {
-                    override fun onTextChanged(
-                        maskFilled: Boolean,
-                        extractedValue: String,
-                        formattedValue: String
-                    ) {
-                        presenter.onPhoneNumberChanged("+7$extractedValue")
-                    }
-
+        MaskedTextChangedListener.installOn(
+            checkoutPhoneNumber,
+            "+7 ([000]) [000]-[00]-[00]",
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean,
+                    extractedValue: String,
+                    formattedValue: String
+                ) {
+                    presenter.onPhoneNumberChanged("+7$extractedValue")
                 }
-            )
-        //checkoutPhoneNumber.hint = maskedTextChangedListener.placeholder().replace("0", "_")
-
+            }
+        )
     }
 
 

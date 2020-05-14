@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.Product
-import com.example.yury_bondarenko_shop.getStrikethroughSpannable
+import com.example.yury_bondarenko_shop.strikethroughSpannable
 import kotlinx.android.synthetic.main.item_catalog_layout.view.*
 import kotlinx.android.synthetic.main.item_catalog_layout.view.catalogItemDescr
 import kotlinx.android.synthetic.main.item_catalog_layout.view.catalogItemMainPrice
@@ -41,25 +41,37 @@ class CatalogAdapter(
         notifyDataSetChanged()
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(product: Product) {
+            loadImage(product.imageUrl)
+            setProductData(product)
+            setListeners()
+        }
+
+        private fun loadImage(imageUrl: String) {
+            Glide.with(itemView.catalogItemPicIv.context)
+                .load(imageUrl)
+                .error(R.drawable.ic_catalog_item_stub)
+                .into(itemView.catalogItemPicIv)
+        }
+
+        private fun setProductData(product: Product) {
             itemView.apply {
-                Glide.with(catalogItemPicIv.context)
-                    .load(product.imageUrl)
-                    .error(R.drawable.ic_catalog_item_stub)
-                    .into(catalogItemPicIv)
                 catalogItemName.text = product.productName
                 catalogItemDescr.text = product.description
                 if (product.salePercent != 0) {
                     catalogItemMainPrice.text = formatPrice(product.discountPrice)
-                    val rawPrice = formatPrice(product.price)
                     catalogItemRawPrice.visibility = View.VISIBLE
-                    catalogItemRawPrice.text = getStrikethroughSpannable(rawPrice)
+                    catalogItemRawPrice.text = formatPrice(product.price).strikethroughSpannable
                 } else {
                     catalogItemMainPrice.text = formatPrice(product.price)
                     catalogItemRawPrice.visibility = View.GONE
                 }
+            }
+        }
+
+        private fun setListeners() {
+            itemView.apply {
                 catalogItemRootCl.setOnClickListener {
                     onItemClick(items[adapterPosition])
                 }
@@ -69,5 +81,4 @@ class CatalogAdapter(
             }
         }
     }
-
 }

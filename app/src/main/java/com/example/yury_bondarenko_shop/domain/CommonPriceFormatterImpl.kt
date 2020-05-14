@@ -1,14 +1,16 @@
 package com.example.yury_bondarenko_shop.domain
 
+import android.icu.text.NumberFormat
 import java.text.DecimalFormat
+import java.util.*
 
-class CommonPriceFormatterImpl :
-    CommonPriceFormatter {
+class CommonPriceFormatterImpl(
+    private val currencySign: String
+) : CommonPriceFormatter {
 
-    private val currencySign: String = "₽"
 
     override fun formatPrice(price: Double): String {
-        val dec = DecimalFormat("#,###")
-        return "${dec.format(price)} $currencySign"
+        val formatted = DecimalFormat("#,###").format(price).replace(",", " ")
+        return "$formatted $currencySign"
     }
 }
