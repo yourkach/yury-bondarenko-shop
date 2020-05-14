@@ -27,9 +27,9 @@ class BasketPresenter @Inject constructor(
     }
 
     fun onViewResume() {
-        if (basketItems.sumBy { it.count } != basketItemsDao.getItemsCount()) {
+        if (basketItems.size != basketItemsDao.getItemsCount()) {
             basketItems = basketItemsDao.getAllItems().toMutableList()
-            viewState.setNewBasketItems(basketItems)
+            updateBasketItemsView()
             updateBasketTotalPrice()
         }
     }
@@ -58,6 +58,7 @@ class BasketPresenter @Inject constructor(
 
     private fun updateBasketItemsView() {
         viewState.setNewBasketItems(basketItems.map { it.copy() })
+        updateCheckoutButton()
         updateBasketTotalPrice()
     }
 
@@ -67,6 +68,10 @@ class BasketPresenter @Inject constructor(
 
     fun onItemClick(pos: Int) {
         viewState.startDetailedActivity(basketItems[pos].product)
+    }
+
+    private fun updateCheckoutButton() {
+        viewState.setCheckoutButtonEnabled(basketItems.isNotEmpty())
     }
 
     private fun updateBasketTotalPrice() {

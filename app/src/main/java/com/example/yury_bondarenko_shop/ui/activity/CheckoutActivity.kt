@@ -10,6 +10,7 @@ import com.example.yury_bondarenko_shop.presenter.CheckoutPresenter
 import com.example.yury_bondarenko_shop.presenter.CheckoutView
 import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import kotlinx.android.synthetic.main.activity_checkout.*
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
@@ -64,14 +65,23 @@ class CheckoutActivity : MvpAppCompatActivity(),
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        checkoutPhoneNumber.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                presenter.onPhoneNumberChanged(s.toString())
-            }
+        val maskedTextChangedListener =
+            MaskedTextChangedListener.installOn(
+                checkoutPhoneNumber,
+                "+7 ([000]) [000]-[00]-[00]",
+                object : MaskedTextChangedListener.ValueListener {
+                    override fun onTextChanged(
+                        maskFilled: Boolean,
+                        extractedValue: String,
+                        formattedValue: String
+                    ) {
+                        presenter.onPhoneNumberChanged("+7$extractedValue")
+                    }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+                }
+            )
+        //checkoutPhoneNumber.hint = maskedTextChangedListener.placeholder().replace("0", "_")
+
     }
 
 
@@ -111,6 +121,10 @@ class CheckoutActivity : MvpAppCompatActivity(),
 
     override fun setBasketItemsCount(count: Int) {
         checkoutProductsCount.text = getString(R.string.checkout_items_count, count)
+    }
+
+    override fun closeView() {
+        finish()
     }
 }
 

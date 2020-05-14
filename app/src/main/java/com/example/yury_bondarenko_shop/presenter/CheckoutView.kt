@@ -31,4 +31,7 @@ interface CheckoutView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setBasketItemsCount(count: Int)
+
+    @StateStrategyType(SkipStrategy::class)
+    fun closeView()
 }

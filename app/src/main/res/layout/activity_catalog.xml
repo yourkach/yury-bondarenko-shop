@@ -20,7 +20,7 @@
             android:id="@+id/catalogHeaderLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="40dp"
             android:layout_marginEnd="40dp"
             android:singleLine="true"
             android:text="@string/catalog_header"
@@ -74,16 +74,30 @@
             tools:text="9+"
             tools:visibility="visible" />
 
-        <SearchView
-            android:id="@+id/catalogSearchView"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:maxWidth="305dp"
-            android:queryBackground="@drawable/bg_rounded_light_gray"
-            android:queryHint="@string/catalog_search_hint"
-            app:layout_constraintBottom_toBottomOf="@+id/catalogOpenBasketIv"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/catalogSearchCl"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/touchable_size"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/catalogOpenBasketIv"
-            app:layout_constraintTop_toTopOf="@+id/catalogOpenBasketIv" />
+            app:layout_constraintStart_toEndOf="@+id/catalogBackIv"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <SearchView
+                android:id="@+id/catalogSearchView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:queryBackground="@drawable/bg_rounded_light_gray"
+                android:queryHint="@string/catalog_search_hint"
+                android:searchIcon="@drawable/ic_search_black"
+                android:layoutDirection="rtl"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </SearchView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

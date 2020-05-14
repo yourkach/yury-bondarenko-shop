@@ -108,6 +108,15 @@ class BasketActivity : MvpAppCompatActivity(),
         startActivity(intent)
     }
 
+    override fun setCheckoutButtonEnabled(enabled: Boolean) {
+        basketCheckoutBtn.isEnabled = enabled
+        if (enabled) {
+            basketCheckoutBtn.setBackgroundResource(R.drawable.bg_button_rounded_black)
+        } else {
+            basketCheckoutBtn.setBackgroundResource(R.drawable.bg_button_disabled)
+        }
+    }
+
     override fun setNewBasketItems(items: List<BasketItem>) {
         basketAdapter.setList(items)
     }

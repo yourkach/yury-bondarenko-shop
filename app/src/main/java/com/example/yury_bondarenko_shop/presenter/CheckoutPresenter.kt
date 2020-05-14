@@ -7,6 +7,7 @@ import com.example.yury_bondarenko_shop.domain.MainApi
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
 import com.example.yury_bondarenko_shop.domain.model.OrderModel
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import javax.inject.Inject
@@ -71,6 +72,8 @@ class CheckoutPresenter @Inject constructor(
                 launch {
                     mainApi.createOrder(remoteOrder)
                     viewState.showMessage(R.string.msg_order_processed)
+                    basketItemsDao.clearBasket()
+                    viewState.closeView()
                 }
             }
             else -> {

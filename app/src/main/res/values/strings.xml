@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">yury-bondarenko-shop</string>
+    <string name="app_name">Магазин</string>
     <string name="checkout_header">Оформление заказа</string>
     <string name="checkout_sum">итого</string>
     <string name="checkout_hint_phone">Телефон</string>

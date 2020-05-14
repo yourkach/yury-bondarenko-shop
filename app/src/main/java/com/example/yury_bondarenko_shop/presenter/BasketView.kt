@@ -24,4 +24,7 @@ interface BasketView : MvpView {
 
     @StateStrategyType(SkipStrategy::class)
     fun startDetailedActivity(product: Product)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setCheckoutButtonEnabled(enabled: Boolean)
 }
