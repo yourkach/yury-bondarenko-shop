@@ -1,8 +1,7 @@
-package com.example.yury_bondarenko_shop.domain
+package com.example.yury_bondarenko_shop.data.price_formatters
 
-import android.icu.text.NumberFormat
+import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import java.text.DecimalFormat
-import java.util.*
 
 class CommonPriceFormatterImpl(
     private val currencySign: String
