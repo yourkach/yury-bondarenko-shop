@@ -27,4 +27,7 @@ interface BasketView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setCheckoutButtonEnabled(enabled: Boolean)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setEmptyMsgVisibility(visible: Boolean)
 }

@@ -33,4 +33,6 @@
     <string name="catalog_search_hint">Введите название</string>
     <string name="err_empty_order">В заказе нет товаров</string>
     <string name="categories_header_label">Категории товаров</string>
+    <string name="basket_total_price_label">Итого</string>
+    <string name="empty_basket_label">Вы пока не добавили ни одного товара в корзину</string>
 </resources>

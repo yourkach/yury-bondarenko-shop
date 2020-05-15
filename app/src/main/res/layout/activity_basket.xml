@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:fontFamily="sans-serif"
-            android:text="Итого"
+            android:text="@string/basket_total_price_label"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/basketCheckoutBtn" />
@@ -108,5 +108,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/basketEmptyMsgTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:text="@string/empty_basket_label"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/basketItemsRv"
+        app:layout_constraintEnd_toEndOf="@+id/basketItemsRv"
+        app:layout_constraintStart_toStartOf="@+id/basketItemsRv"
+        app:layout_constraintTop_toTopOf="@+id/basketItemsRv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

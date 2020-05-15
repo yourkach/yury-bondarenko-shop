@@ -2,6 +2,7 @@ package com.example.yury_bondarenko_shop.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.yury_bondarenko_shop.App
@@ -111,6 +112,10 @@ class BasketActivity : MvpAppCompatActivity(),
         } else {
             basketCheckoutBtn.setBackgroundResource(R.drawable.bg_button_disabled)
         }
+    }
+
+    override fun setEmptyMsgVisibility(visible: Boolean) {
+        basketEmptyMsgTv.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     override fun setNewBasketItems(items: List<BasketItem>) {
