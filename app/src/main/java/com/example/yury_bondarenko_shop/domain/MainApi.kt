@@ -11,9 +11,6 @@ import retrofit2.http.Path
 
 interface MainApi {
 
-    @GET("products/all/{author}")
-    suspend fun allProducts(@Path("author") author: String): List<RemoteProduct>
-
     @GET("products/allWithCategories/Bondarenko/")
     suspend fun allProductsWithCategories(): List<RemoteCategory>
 

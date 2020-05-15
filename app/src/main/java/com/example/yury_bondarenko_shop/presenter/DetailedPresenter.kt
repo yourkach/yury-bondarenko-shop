@@ -1,8 +1,8 @@
 package com.example.yury_bondarenko_shop.presenter
 
+import com.example.yury_bondarenko_shop.commonPriceFormat
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
-import com.example.yury_bondarenko_shop.domain.MainApi
-import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
+import com.example.yury_bondarenko_shop.domain.ViewedProductsDao
 import com.example.yury_bondarenko_shop.domain.model.Product
 import moxy.InjectViewState
 import javax.inject.Inject
@@ -10,7 +10,7 @@ import javax.inject.Inject
 @InjectViewState
 class DetailedPresenter(
     private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter,
+    private val viewedProductsDao: ViewedProductsDao,
     private val product: Product,
     private val launchedFromBasket: Boolean
 ) : BasePresenter<DetailedView>() {
@@ -18,6 +18,7 @@ class DetailedPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         setProductInfo()
+        viewedProductsDao.addProduct(product)
     }
 
     private fun setProductInfo() {
@@ -32,11 +33,11 @@ class DetailedPresenter(
         )
         if (product.salePercent != 0) {
             viewState.setProductPrice(
-                commonPriceFormatter.formatPrice(product.discountPrice),
-                commonPriceFormatter.formatPrice(product.price)
+                product.discountPrice.commonPriceFormat,
+                product.price.commonPriceFormat
             )
         } else {
-            viewState.setProductPrice(commonPriceFormatter.formatPrice(product.price))
+            viewState.setProductPrice(product.price.commonPriceFormat)
         }
         viewState.loadProductImage(product.imageUrl)
         if (launchedFromBasket) {
@@ -72,12 +73,12 @@ class DetailedPresenter(
 
 class DetailedPresenterFactory @Inject constructor(
     private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter
+    private val viewedProductsDao: ViewedProductsDao
 ) {
     fun create(product: Product, launchedFromBasket: Boolean): DetailedPresenter {
         return DetailedPresenter(
             basketItemsDao,
-            commonPriceFormatter,
+            viewedProductsDao,
             product,
             launchedFromBasket
         )

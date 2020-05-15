@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.commonPriceFormat
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.strikethroughSpannable
 import kotlinx.android.synthetic.main.item_catalog_layout.view.*
@@ -18,8 +19,7 @@ import kotlinx.android.synthetic.main.item_catalog_layout.view.catalogItemRootCl
 
 class CatalogAdapter(
     val onItemClick: (product: Product) -> Unit,
-    val onAddToBasketClick: (product: Product) -> Unit,
-    val formatPrice: (price: Double) -> String
+    val onAddToBasketClick: (product: Product) -> Unit
 ) : RecyclerView.Adapter<CatalogAdapter.ViewHolder>() {
 
     private var items = listOf<Product>()
@@ -60,11 +60,12 @@ class CatalogAdapter(
                 catalogItemName.text = product.productName
                 catalogItemDescr.text = product.description
                 if (product.salePercent != 0) {
-                    catalogItemMainPrice.text = formatPrice(product.discountPrice)
+                    catalogItemMainPrice.text = product.discountPrice.commonPriceFormat
                     catalogItemRawPrice.visibility = View.VISIBLE
-                    catalogItemRawPrice.text = formatPrice(product.price).strikethroughSpannable
+                    catalogItemRawPrice.text =
+                        product.price.commonPriceFormat.strikethroughSpannable
                 } else {
-                    catalogItemMainPrice.text = formatPrice(product.price)
+                    catalogItemMainPrice.text = product.price.commonPriceFormat
                     catalogItemRawPrice.visibility = View.GONE
                 }
             }

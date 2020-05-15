@@ -1,6 +1,8 @@
 package com.example.yury_bondarenko_shop.presenter
 
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
+import com.example.yury_bondarenko_shop.domain.ViewedProductsDao
+import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteProduct
 import moxy.InjectViewState
@@ -10,6 +12,7 @@ import javax.inject.Inject
 @InjectViewState
 class CategoriesPresenter(
     private val basketItemsDao: BasketItemsDao,
+    private val viewedProductsDao: ViewedProductsDao,
     private val categoriesList: List<RemoteCategory>
 ) : BasePresenter<CategoriesView>() {
 
@@ -28,15 +31,23 @@ class CategoriesPresenter(
                 }
             }
             categories.add(RemoteCategory("Все товары", allProducts))
-            categories.add(RemoteCategory("Товары со скидкой", discountProducts))
+            categories.add(RemoteCategory("Товары со скидкой %", discountProducts))
         }
         viewState.setCategoriesList(categories.map { it.name })
-
     }
 
-    override fun attachView(view: CategoriesView?) {
-        super.attachView(view)
+    private fun updateViewedItems() {
+        val viewedItems = viewedProductsDao.getAllProducts()
+        viewState.setViewedProductsVisibility(viewedItems.isNotEmpty())
+        if (viewedItems.isNotEmpty()) {
+            viewState.setViewedItems(viewedItems)
+        }
+    }
+
+
+    fun onViewResume() {
         updateBasketItemsCount()
+        updateViewedItems()
     }
 
     private fun updateBasketItemsCount() {
@@ -57,12 +68,17 @@ class CategoriesPresenter(
     fun onBasketClick() {
         viewState.startBasketActivity()
     }
+
+    fun onViewedItemClick(product: Product) {
+        viewState.startDetailedActivity(product)
+    }
 }
 
 class CategoriesPresenterFactory @Inject constructor(
-    private val basketItemsDao: BasketItemsDao
+    private val basketItemsDao: BasketItemsDao,
+    private val viewedProductsDao: ViewedProductsDao
 ) {
     fun create(categoriesList: List<RemoteCategory>): CategoriesPresenter {
-        return CategoriesPresenter(basketItemsDao, categoriesList)
+        return CategoriesPresenter(basketItemsDao, viewedProductsDao, categoriesList)
     }
 }

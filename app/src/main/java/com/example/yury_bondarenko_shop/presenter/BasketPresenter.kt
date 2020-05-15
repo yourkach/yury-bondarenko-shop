@@ -1,16 +1,15 @@
 package com.example.yury_bondarenko_shop.presenter
 
+import com.example.yury_bondarenko_shop.commonPriceFormat
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
-import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import javax.inject.Inject
 
 @InjectViewState
 class BasketPresenter @Inject constructor(
-    private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter
+    private val basketItemsDao: BasketItemsDao
 ) : MvpPresenter<BasketView>() {
 
     private var basketItems: MutableList<BasketItem> = basketItemsDao.getAllItems().toMutableList()
@@ -75,9 +74,7 @@ class BasketPresenter @Inject constructor(
 
     private fun updateBasketTotalPrice() {
         val totalPrice = basketItems.sumByDouble { it.count * it.product.discountPrice }
-        viewState.setTotalPriceText(formatPrice(totalPrice))
+        viewState.setTotalPriceText(totalPrice.commonPriceFormat)
     }
-
-    fun formatPrice(price: Double): String = commonPriceFormatter.formatPrice(price)
 }
 

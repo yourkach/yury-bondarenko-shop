@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.NO_POSITION
 import com.bumptech.glide.Glide
 import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.commonPriceFormat
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
 import com.example.yury_bondarenko_shop.strikethroughSpannable
 import kotlinx.android.synthetic.main.item_basket_layout.view.*
 
 class BasketAdapter(
-    val callbackDelegate: BasketItemClickCallback,
-    val formatPrice: (price: Double) -> String
+    val callbackDelegate: BasketItemClickCallback
 ) : RecyclerView.Adapter<BasketAdapter.ViewHolder>() {
 
     private var items: List<BasketItem> = listOf<BasketItem>()
@@ -57,10 +57,11 @@ class BasketAdapter(
                 basketItemCountTv.text = basketItem.count.toString()
                 if (product.salePercent != 0) {
                     basketItemDiscountPrice.visibility = View.VISIBLE
-                    basketItemDiscountPrice.text = formatPrice(product.discountPrice)
-                    basketItemMainPrice.text = formatPrice(product.price).strikethroughSpannable
+                    basketItemDiscountPrice.text = product.discountPrice.commonPriceFormat
+                    basketItemMainPrice.text =
+                        product.price.commonPriceFormat.strikethroughSpannable
                 } else {
-                    basketItemMainPrice.text = formatPrice(product.price)
+                    basketItemMainPrice.text = product.price.commonPriceFormat
                     basketItemDiscountPrice.visibility = View.GONE
                 }
             }

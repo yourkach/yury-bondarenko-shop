@@ -1,13 +1,12 @@
 package com.example.yury_bondarenko_shop.presenter
 
 import com.example.yury_bondarenko_shop.R
+import com.example.yury_bondarenko_shop.checkoutPriceFormat
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
-import com.example.yury_bondarenko_shop.domain.CheckoutPriceFormatter
 import com.example.yury_bondarenko_shop.domain.MainApi
 import com.example.yury_bondarenko_shop.domain.model.BasketItem
 import com.example.yury_bondarenko_shop.domain.model.OrderModel
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteOrder
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import moxy.InjectViewState
 import java.net.ConnectException
@@ -17,8 +16,7 @@ import javax.inject.Inject
 @InjectViewState
 class CheckoutPresenter @Inject constructor(
     private val mainApi: MainApi,
-    private val basketItemsDao: BasketItemsDao,
-    private val checkoutPriceFormatter: CheckoutPriceFormatter
+    private val basketItemsDao: BasketItemsDao
 ) : BasePresenter<CheckoutView>() {
 
     private lateinit var basketItems: List<BasketItem>
@@ -33,9 +31,9 @@ class CheckoutPresenter @Inject constructor(
     private fun setOrderInfo() {
         basketItems = basketItemsDao.getAllItems()
         viewState.setBasketItemsCount(basketItems.sumBy { it.count })
-        viewState.setTotalPrice(checkoutPriceFormatter.formatPrice(calcPurchaseDiscountSum()))
-        viewState.setRawPrice(checkoutPriceFormatter.formatPrice(calcPurchaseRawPricesSum()))
-        viewState.setDiscount(checkoutPriceFormatter.formatPrice(calcTotalDiscount()))
+        viewState.setTotalPrice(calcPurchaseDiscountSum().checkoutPriceFormat)
+        viewState.setRawPrice(calcPurchaseRawPricesSum().checkoutPriceFormat)
+        viewState.setDiscount(calcTotalDiscount().checkoutPriceFormat)
     }
 
     fun onFirstNameChanged(text: String) {

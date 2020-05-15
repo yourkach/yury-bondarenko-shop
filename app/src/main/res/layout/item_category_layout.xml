@@ -23,7 +23,7 @@
         tools:text="Category" />
 
     <View
-        android:id="@+id/divider2"
+        android:id="@+id/categoryDivider"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"

@@ -26,15 +26,19 @@ class CategoriesAdapter(
     override fun getItemCount(): Int = categoriesList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(categoriesList[position])
+        holder.bind(categoriesList[position], position == categoriesList.lastIndex)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(categoryName: String) {
-            itemView.categoryNameTv.text = categoryName
-            itemView.categoryCl.setOnClickListener {
-                onCategoryClick(adapterPosition)
+        fun bind(categoryName: String, isLast: Boolean) {
+            itemView.apply {
+                categoryNameTv.text = categoryName
+                categoryCl.setOnClickListener {
+                    onCategoryClick(adapterPosition)
+                }
+                categoryDivider.visibility = if (isLast) View.INVISIBLE else View.VISIBLE
             }
+
         }
     }
 }

@@ -72,14 +72,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="16dp">
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/detailedPicCv"
                 android:layout_width="0dp"
                 android:layout_height="320dp"
-                android:layout_margin="16dp"
                 android:layout_marginTop="8dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -105,7 +105,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/detailedPicCv"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedPicCv"
                 tools:text="16 000 P" />
 
@@ -128,7 +128,7 @@
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
                 android:textSize="22sp"
-                app:layout_constraintStart_toStartOf="@+id/detailedMainPriceTv"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedMainPriceTv"
                 tools:text="Название товара" />
 
@@ -136,27 +136,41 @@
                 android:id="@+id/detailedDescriptionTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="@+id/detailedPicCv"
-                app:layout_constraintStart_toStartOf="@+id/detailedNameTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detailedNameTv"
                 tools:text="Описание товара" />
+
+            <TextView
+                android:id="@+id/detailedAttributesLabelTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:lineSpacingExtra="10sp"
+                android:text="@string/detailed_attributes_label"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailedDescriptionTv" />
 
             <TextView
                 android:id="@+id/detailedAttributesTv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="120dp"
-                android:lineSpacingExtra="8sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="80dp"
+                android:lineSpacingExtra="10sp"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/detailedDescriptionTv"
-                app:layout_constraintStart_toStartOf="@+id/detailedDescriptionTv"
-                app:layout_constraintTop_toBottomOf="@+id/detailedDescriptionTv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailedAttributesLabelTv"
                 tools:text="Атрибуты" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

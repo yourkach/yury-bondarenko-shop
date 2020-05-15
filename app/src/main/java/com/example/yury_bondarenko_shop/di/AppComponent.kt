@@ -3,7 +3,6 @@ package com.example.yury_bondarenko_shop.di
 import android.content.Context
 import com.example.yury_bondarenko_shop.di.modules.MainApiModule
 import com.example.yury_bondarenko_shop.di.modules.PreferencesModule
-import com.example.yury_bondarenko_shop.di.modules.PriceFormatterModule
 import com.example.yury_bondarenko_shop.ui.activity.*
 import dagger.BindsInstance
 import dagger.Component
@@ -12,8 +11,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         PreferencesModule::class,
-        MainApiModule::class,
-        PriceFormatterModule::class
+        MainApiModule::class
     ]
 )
 @Singleton

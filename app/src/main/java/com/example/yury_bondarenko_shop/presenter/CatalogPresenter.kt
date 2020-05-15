@@ -1,22 +1,15 @@
 package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
-import com.example.yury_bondarenko_shop.domain.MainApi
-import com.example.yury_bondarenko_shop.domain.CommonPriceFormatter
 import com.example.yury_bondarenko_shop.domain.model.Product
 import com.example.yury_bondarenko_shop.domain.model.ProductFactory
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
-import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import java.net.ConnectException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 @InjectViewState
 class CatalogPresenter(
     private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter,
     private val category: RemoteCategory
 ) : BasePresenter<CatalogView>() {
 
@@ -56,8 +49,6 @@ class CatalogPresenter(
         }
     }
 
-    fun formatPrice(price: Double): String = commonPriceFormatter.formatPrice(price)
-
     fun onBasketClicked() {
         viewState.startBasketActivity()
     }
@@ -74,10 +65,9 @@ class CatalogPresenter(
 
 
 class CatalogPresenterFactory @Inject constructor(
-    private val basketItemsDao: BasketItemsDao,
-    private val commonPriceFormatter: CommonPriceFormatter
+    private val basketItemsDao: BasketItemsDao
 ) {
     fun create(category: RemoteCategory): CatalogPresenter {
-        return CatalogPresenter(basketItemsDao, commonPriceFormatter, category)
+        return CatalogPresenter(basketItemsDao, category)
     }
 }

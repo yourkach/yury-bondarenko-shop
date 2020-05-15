@@ -45,8 +45,7 @@ class BasketActivity : MvpAppCompatActivity(),
                 override fun onItemClick(pos: Int) {
                     presenter.onItemClick(pos)
                 }
-            },
-            formatPrice = { price -> presenter.formatPrice(price) }
+            }
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -32,8 +32,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     private val catalogAdapter = CatalogAdapter(
         onItemClick = { product -> presenter.onItemClicked(product) },
-        onAddToBasketClick = { product -> presenter.addProductToBasket(product) },
-        formatPrice = { price -> presenter.formatPrice(price) }
+        onAddToBasketClick = { product -> presenter.addProductToBasket(product) }
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
