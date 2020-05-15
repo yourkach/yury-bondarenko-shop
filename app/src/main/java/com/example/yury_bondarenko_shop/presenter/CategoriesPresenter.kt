@@ -1,14 +1,9 @@
 package com.example.yury_bondarenko_shop.presenter
 
-import com.example.yury_bondarenko_shop.R
 import com.example.yury_bondarenko_shop.domain.BasketItemsDao
-import com.example.yury_bondarenko_shop.domain.MainApi
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteCategory
 import com.example.yury_bondarenko_shop.domain.model.remote.RemoteProduct
-import kotlinx.coroutines.launch
 import moxy.InjectViewState
-import java.net.ConnectException
-import java.net.UnknownHostException
 import javax.inject.Inject
 
 
@@ -24,11 +19,16 @@ class CategoriesPresenter(
         super.onFirstViewAttach()
         if (categoriesList.sumBy { it.products.size } > 0) {
             val allProducts = mutableListOf<RemoteProduct>()
-            categoriesList.forEach {
-                categories.add(it)
-                allProducts.addAll(it.products)
+            val discountProducts = mutableListOf<RemoteProduct>()
+            categoriesList.forEach { category ->
+                categories.add(category)
+                allProducts.addAll(category.products)
+                category.products.forEach { product ->
+                    if (product.discountPercent > 0) discountProducts.add(product)
+                }
             }
             categories.add(RemoteCategory("Все товары", allProducts))
+            categories.add(RemoteCategory("Товары со скидкой", discountProducts))
         }
         viewState.setCategoriesList(categories.map { it.name })
 
