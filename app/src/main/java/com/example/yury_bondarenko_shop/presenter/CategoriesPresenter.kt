@@ -31,7 +31,7 @@ class CategoriesPresenter(
                 }
             }
             categories.add(RemoteCategory("Все товары", allProducts))
-            categories.add(RemoteCategory("Товары со скидкой %", discountProducts))
+            categories.add(RemoteCategory("Товары со скидкой", discountProducts))
         }
         viewState.setCategoriesList(categories.map { it.name })
     }
